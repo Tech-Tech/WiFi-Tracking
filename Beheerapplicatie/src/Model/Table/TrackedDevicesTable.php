@@ -1,0 +1,57 @@
+<?php
+namespace App\Model\Table;
+
+use App\Model\Entity\TrackedDevice;
+use Cake\ORM\Query;
+use Cake\ORM\RulesChecker;
+use Cake\ORM\Table;
+use Cake\Validation\Validator;
+
+/**
+ * TrackedDevices Model
+ *
+ */
+class TrackedDevicesTable extends Table
+{
+
+    /**
+     * Initialize method
+     *
+     * @param array $config The configuration for the Table.
+     * @return void
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        $this->table('tracked_devices');
+        $this->displayField('name');
+        $this->primaryKey('mac_address');
+    }
+
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->allowEmpty('mac_address', 'create');
+
+        $validator
+            ->integer('device_type')
+            ->requirePresence('device_type', 'create')
+            ->notEmpty('device_type');
+
+        $validator
+            ->requirePresence('vendor', 'create')
+            ->notEmpty('vendor');
+
+        $validator
+            ->allowEmpty('name');
+
+        return $validator;
+    }
+}
