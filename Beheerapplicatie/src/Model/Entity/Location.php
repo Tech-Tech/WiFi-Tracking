@@ -41,9 +41,10 @@ class Location extends Entity
     public function _getFullLocationName() {
 	    $location_table = TableRegistry::get('Locations');
 	    $location = $location_table->get($this->_properties['id'], [
-		    'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings', 'MonitoringDeviceLocations']
+		    'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses'], 'MonitoringDeviceLocations']
 	    ]);
 	    $full_location_name =
+		    $location['building']['campus']['name'] . ' ' .
 		    $location['building']['name'] . ' ' .
 		    $location['wing']['wing_code'] .
 		    $location['floor']['floor_number'] . '.' .

@@ -1,6 +1,14 @@
 <div class="locations view large-9 medium-8 columns content">
     <h3><?= h($location->full_location_name) ?></h3>
     <table class="vertical-table">
+	    <tr>
+		    <th><?= __('Campus') ?></th>
+		    <td><?= $this->Html->link($location->building->campus->name, ['controller' => 'Campuses', 'action' => 'view', $location->building->campus_id]) ?></td>
+	    </tr>
+	    <tr>
+		    <th><?= __('Building') ?></th>
+		    <td><?= $this->Html->link($location->building->name, ['controller' => 'Buildings', 'action' => 'view', $location->building->id]) ?></td>
+	    </tr>
         <tr>
             <th><?= __('Wing') ?></th>
             <td><?= $location->wing->wing_code ?></td>
@@ -16,10 +24,6 @@
         <tr>
             <th><?= __('Suffix') ?></th>
             <td><?= $location->has('suffix') ? $location->suffix->suffix : '' ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Building') ?></th>
-            <td><?= $this->Html->link($location->building->name, ['controller' => 'Buildings', 'action' => 'view', $location->building->id]) ?></td>
         </tr>
         <tr>
             <th><?= __('Name') ?></th>
