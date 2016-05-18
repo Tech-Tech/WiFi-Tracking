@@ -19,7 +19,7 @@ class LocationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings']
+            'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses']]
         ];
         $locations = $this->paginate($this->Locations);
 
@@ -37,7 +37,7 @@ class LocationsController extends AppController
     public function view($id = null)
     {
         $location = $this->Locations->get($id, [
-            'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings', 'MonitoringDeviceLocations']
+            'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings', 'MonitoringDeviceLocations' => ['MonitoringDevices' => ['ReceivedRequests']]]
         ]);
 
         $this->set('location', $location);

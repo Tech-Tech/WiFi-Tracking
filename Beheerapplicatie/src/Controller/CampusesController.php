@@ -34,7 +34,7 @@ class CampusesController extends AppController
     public function view($id = null)
     {
         $campus = $this->Campuses->get($id, [
-            'contain' => ['Buildings']
+            'contain' => ['Buildings' => ['Addresses']]
         ]);
 
         $this->set('campus', $campus);

@@ -37,7 +37,7 @@ class BuildingsController extends AppController
     public function view($id = null)
     {
         $building = $this->Buildings->get($id, [
-            'contain' => ['Addresses', 'Campuses', 'Locations']
+            'contain' => ['Addresses', 'Campuses', 'Locations' => ['Wings', 'Floors', 'Rooms', 'Suffixes']]
         ]);
 
         $this->set('building', $building);

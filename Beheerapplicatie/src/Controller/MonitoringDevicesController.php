@@ -34,7 +34,7 @@ class MonitoringDevicesController extends AppController
     public function view($id = null)
     {
         $monitoringDevice = $this->MonitoringDevices->get($id, [
-            'contain' => ['MonitoringDeviceLocations', 'ReceivedRequests']
+            'contain' => ['MonitoringDeviceLocations' => ['Locations'], 'ReceivedRequests']
         ]);
 
         $this->set('monitoringDevice', $monitoringDevice);

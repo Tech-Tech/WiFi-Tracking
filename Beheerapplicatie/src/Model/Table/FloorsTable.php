@@ -26,7 +26,7 @@ class FloorsTable extends Table
         parent::initialize($config);
 
         $this->table('floors');
-        $this->displayField('id');
+        $this->displayField('floor_number');
         $this->primaryKey('id');
 
         $this->hasMany('Locations', [

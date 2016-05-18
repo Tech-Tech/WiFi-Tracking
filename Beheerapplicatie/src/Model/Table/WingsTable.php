@@ -26,7 +26,7 @@ class WingsTable extends Table
         parent::initialize($config);
 
         $this->table('wings');
-        $this->displayField('id');
+        $this->displayField('wing_code');
         $this->primaryKey('id');
 
         $this->hasMany('Locations', [

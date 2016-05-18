@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\ORM\TableRegistry;
 
 /**
  * Location Entity.
@@ -36,4 +37,26 @@ class Location extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    public function _getFullLocationName() {
+	    $location_table = TableRegistry::get('Locations');
+	    $location = $location_table->get($this->_properties['id'], [
+		    'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings', 'MonitoringDeviceLocations']
+	    ]);
+	    $full_location_name =
+		    $location['building']['name'] . ' ' .
+		    $location['wing']['wing_code'] .
+		    $location['floor']['floor_number'] . '.' .
+	        $this->leadingZero($location['room']['room_number']) . ' ' .
+	        $location['suffix']['suffix'];
+
+        return $full_location_name;
+    }
+
+	private function leadingZero($value) {
+		if($value >= 0 && $value < 10) {
+			return '0' . $value;
+		}
+		return $value;
+	}
 }

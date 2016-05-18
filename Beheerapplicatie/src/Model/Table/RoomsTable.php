@@ -26,7 +26,7 @@ class RoomsTable extends Table
         parent::initialize($config);
 
         $this->table('rooms');
-        $this->displayField('id');
+        $this->displayField('room_number');
         $this->primaryKey('id');
 
         $this->hasMany('Locations', [
