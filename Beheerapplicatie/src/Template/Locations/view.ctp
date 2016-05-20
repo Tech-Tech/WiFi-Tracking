@@ -32,18 +32,23 @@
     </table>
     <div class="related">
         <h4><?= __('Related Monitoring Devices') ?></h4>
+	    <?= $this->Html->link(__('Add monitoring device'), ['controller' => 'MonitoringDeviceLocations', 'action' => 'add', $location->id]) ?>
         <?php if (!empty($location->monitoring_device_locations)): ?>
 	        <table cellpadding="0" cellspacing="0">
 	            <tr>
 	                <th><?= __('Monitoring Device') ?></th>
 	                <th><?= __('Begin Date') ?></th>
 	                <th><?= __('End Date') ?></th>
+		            <th><?= __('Actions') ?></th>
 	            </tr>
 	            <?php foreach ($location->monitoring_device_locations as $monitoringDeviceLocation): ?>
 	            <tr>
 	                <td><?= $this->Html->link($monitoringDeviceLocation->monitoring_device->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $monitoringDeviceLocation->monitoring_device->id]) ?></td>
 	                <td><?= h($monitoringDeviceLocation->begin_date) ?></td>
 	                <td><?= h($monitoringDeviceLocation->end_date) ?></td>
+		            <td class="actions">
+			            <?= $this->Form->postLink(__('Delete'), ['controller' => 'MonitoringDeviceLocations', 'action' => 'delete', $monitoringDeviceLocation->id, '?' => ['id' => $monitoringDeviceLocation->location_id]], ['confirm' => __('Are you sure you want to delete # {0}?', $monitoringDeviceLocation->id)]) ?>
+		            </td>
 	            </tr>
 	            <?php endforeach; ?>
 	        </table>
@@ -61,9 +66,9 @@
                     <th><?= __('Request Timestamp') ?></th>
                     <th><?= __('Signal Strength') ?></th>
                 </tr>
-                <?php foreach ($monitoringDeviceLocation->monitoring_device->received_requests as $receivedRequest): ?>
+                <?php foreach ($received_requests as $receivedRequest): ?>
                     <tr>
-                        <td><?= $this->Html->link($monitoringDeviceLocation->monitoring_device->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $monitoringDeviceLocation->monitoring_device->id]) ?></td>
+                        <td><?= $this->Html->link($receivedRequest->monitoring_device_id, ['controller' => 'MonitoringDevices', 'action' => 'view', $receivedRequest->monitoring_device_id]) ?></td>
                         <td><?= h($receivedRequest->tracked_mac_address) ?></td>
                         <td><?= h($receivedRequest->request_timestamp) ?></td>
                         <td><?= h($receivedRequest->signal_strength) ?></td>

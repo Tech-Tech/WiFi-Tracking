@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 
 /**
  * Locations Controller
@@ -21,9 +23,27 @@ class LocationsController extends AppController
         $this->paginate = [
             'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses']]
         ];
+
         $locations = $this->paginate($this->Locations);
 
+	    $current_time = gmdate('Y-m-d H:i:s');
+	    $monitoring_device_locations_table = TableRegistry::get('MonitoringDeviceLocations');
+	    $monitoring_device_locations = $monitoring_device_locations_table->find('all', [
+		    'contain' => ['MonitoringDevices']
+	    ]);
+	    $current_monitoring_device_locations = [];
+	    $date_format = 'Y-m-d H:i:s';
+        foreach($monitoring_device_locations as $monitoring_device_location) {
+	        if($current_time > date_format($monitoring_device_location['begin_date'], $date_format)) {
+			    if($monitoring_device_location['end_date'] == null ||
+				    $current_time < date_format($monitoring_device_location['end_date'], $date_format)) {
+				    array_push($current_monitoring_device_locations, $monitoring_device_location);
+			    }
+	        }
+        }
+
         $this->set(compact('locations'));
+	    $this->set(compact('current_monitoring_device_locations'));
         $this->set('_serialize', ['locations']);
     }
 
@@ -36,11 +56,15 @@ class LocationsController extends AppController
      */
     public function view($id = null)
     {
-        $location = $this->Locations->get($id, [
-            'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses'], 'MonitoringDeviceLocations' => ['MonitoringDevices' => ['ReceivedRequests']]]
-        ]);
+	    $location = $this->Locations->get($id, [
+		    'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses'], 'MonitoringDeviceLocations' => ['MonitoringDevices' => ['ReceivedRequests']]]
+	    ]);
+
+	    $received_requests_table = TableRegistry::get('received_requests');
+	    $received_requests = $received_requests_table->find('RelatedReceivedRequests', ['id' => $id]);
 
         $this->set('location', $location);
+	    $this->set('received_requests', $received_requests);
         $this->set('_serialize', ['location']);
     }
 

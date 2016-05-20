@@ -49,19 +49,22 @@ class MonitoringDeviceLocationsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $monitoringDeviceLocation = $this->MonitoringDeviceLocations->newEntity();
         if ($this->request->is('post')) {
+	        debug($this->request->data);
             $monitoringDeviceLocation = $this->MonitoringDeviceLocations->patchEntity($monitoringDeviceLocation, $this->request->data);
             if ($this->MonitoringDeviceLocations->save($monitoringDeviceLocation)) {
                 $this->Flash->success(__('The monitoring device location has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Locations', 'action' => 'view', $id]);
             } else {
                 $this->Flash->error(__('The monitoring device location could not be saved. Please, try again.'));
             }
         }
-        $locations = $this->MonitoringDeviceLocations->Locations->find('list', ['limit' => 200]);
+        $locations = $this->MonitoringDeviceLocations->Locations->find('list', [
+            'conditions' => ['id' => $id]
+        ]);
         $monitoringDevices = $this->MonitoringDeviceLocations->MonitoringDevices->find('list', ['limit' => 200]);
         $this->set(compact('monitoringDeviceLocation', 'locations', 'monitoringDevices'));
         $this->set('_serialize', ['monitoringDeviceLocation']);
@@ -110,6 +113,6 @@ class MonitoringDeviceLocationsController extends AppController
         } else {
             $this->Flash->error(__('The monitoring device location could not be deleted. Please, try again.'));
         }
-        return $this->redirect(['action' => 'index']);
+	    return $this->redirect(['controller' => 'Locations', 'action' => 'view', $this->request->query['id']]);
     }
 }

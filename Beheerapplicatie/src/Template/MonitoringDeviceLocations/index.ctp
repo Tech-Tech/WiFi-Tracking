@@ -3,6 +3,7 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
+                <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('location_id') ?></th>
                 <th><?= $this->Paginator->sort('monitoring_device_id') ?></th>
                 <th><?= $this->Paginator->sort('begin_date') ?></th>
@@ -13,7 +14,8 @@
         <tbody>
             <?php foreach ($monitoringDeviceLocations as $monitoringDeviceLocation): ?>
             <tr>
-                <td><?= $monitoringDeviceLocation->has('location') ? $this->Html->link($monitoringDeviceLocation->location->full_location_name, ['controller' => 'Locations', 'action' => 'view', $monitoringDeviceLocation->location->id]) : '' ?></td>
+                <td><?= $this->Number->format($monitoringDeviceLocation->id) ?></td>
+                <td><?= $monitoringDeviceLocation->has('location') ? $this->Html->link($monitoringDeviceLocation->location->name, ['controller' => 'Locations', 'action' => 'view', $monitoringDeviceLocation->location->id]) : '' ?></td>
                 <td><?= $monitoringDeviceLocation->has('monitoring_device') ? $this->Html->link($monitoringDeviceLocation->monitoring_device->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $monitoringDeviceLocation->monitoring_device->id]) : '' ?></td>
                 <td><?= h($monitoringDeviceLocation->begin_date) ?></td>
                 <td><?= h($monitoringDeviceLocation->end_date) ?></td>

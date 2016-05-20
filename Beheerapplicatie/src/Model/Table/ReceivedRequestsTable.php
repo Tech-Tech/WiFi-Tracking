@@ -76,4 +76,12 @@ class ReceivedRequestsTable extends Table
         $rules->add($rules->existsIn(['monitoring_device_id'], 'MonitoringDevices'));
         return $rules;
     }
+
+    public function findRelatedReceivedRequests(Query $query, array $options) {
+	    $sql_command = sprintf('
+			SELECT *
+			FROM funcGetReceivedRequests(%s)
+			', $options['id']);
+	    return $this->query($sql_command)->toArray();
+    }
 }
