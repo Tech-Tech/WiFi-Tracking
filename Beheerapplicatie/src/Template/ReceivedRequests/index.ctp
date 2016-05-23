@@ -13,7 +13,7 @@
         <tbody>
             <?php foreach ($receivedRequests as $receivedRequest): ?>
             <tr>
-                <td><?= $receivedRequest->has('monitoring_device') ? $this->Html->link($receivedRequest->monitoring_device->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $receivedRequest->monitoring_device->id]) : '' ?></td>
+                <td><?= $this->Html->link($receivedRequest->monitoring_device->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $receivedRequest->monitoring_device->id]) ?></td>
                 <td><?= h($receivedRequest->tracked_mac_address) ?></td>
                 <td><?= h($receivedRequest->request_timestamp) ?></td>
                 <td><?= $this->Number->format($receivedRequest->signal_strength) ?></td>

@@ -29,6 +29,7 @@ class LocationsController extends AppController
 	    $monitoring_device_locations = $monitoring_device_locations_table->find('all', [
 		    'contain' => ['MonitoringDevices']
 	    ]);
+
 	    $current_monitoring_device_locations = [];
 	    $date_format = 'Y-m-d H:i:s';
         foreach($monitoring_device_locations as $monitoring_device_location) {
@@ -54,6 +55,10 @@ class LocationsController extends AppController
      */
     public function view($id = null)
     {
+	    $this->paginate = [
+		    'fields' => ['id', 'name', 'tracked_mac_address', 'request_timestamp', 'signal_strength']
+	    ];
+
 	    $location = $this->Locations->get($id, [
 		    'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses'], 'MonitoringDeviceLocations' => ['MonitoringDevices' => ['ReceivedRequests']]]
 	    ]);

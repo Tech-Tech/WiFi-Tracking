@@ -12,6 +12,7 @@
 		<li><?= $this->Html->link(__('List Received Requests'), ['controller' => 'ReceivedRequests', 'action' => 'index']) ?></li>
 		<li><?= $this->Html->link(__('List Tracked Devices'), ['controller' => 'TrackedDevices', 'action' => 'index']) ?></li>
 		<li><?= $this->Html->link(__('List Personal Devices'), ['controller' => 'PersonalDevices', 'action' => 'index']) ?></li>
+		<li><?= $this->Html->link(__('List Static Devices'), ['controller' => 'StaticDevices', 'action' => 'index']) ?></li>
 		<li><?= $this->Html->link(__('List Device Types'), ['controller' => 'DeviceTypes', 'action' => 'index']) ?></li>
 		<li><?= $this->Html->link(__('List Persons'), ['controller' => 'Persons', 'action' => 'index']) ?></li>
 		<li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?></li>
