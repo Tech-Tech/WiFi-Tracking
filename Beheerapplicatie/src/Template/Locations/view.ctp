@@ -66,12 +66,13 @@
                     <th><?= __('Request Timestamp') ?></th>
                     <th><?= __('Signal Strength') ?></th>
                 </tr>
-                <?php foreach ($received_requests as $receivedRequest): ?>
+                <?php foreach ($received_requests as $received_request): ?>
                     <tr>
-                        <td><?= $this->Html->link($receivedRequest->monitoring_device_id, ['controller' => 'MonitoringDevices', 'action' => 'view', $receivedRequest->monitoring_device_id]) ?></td>
-                        <td><?= h($receivedRequest->tracked_mac_address) ?></td>
-                        <td><?= h($receivedRequest->request_timestamp) ?></td>
-                        <td><?= h($receivedRequest->signal_strength) ?></td>
+	                    <?php $decoded_request = json_decode($received_request['funcgetreceivedrequests'], false) ?>
+                        <td><?= $this->Html->link($decoded_request->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $decoded_request->id]) ?></td>
+                        <td><?= h($decoded_request->tracked_mac_address) ?></td>
+                        <td><?= h($decoded_request->request_timestamp) ?></td>
+                        <td><?= h($decoded_request->signal_strength) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

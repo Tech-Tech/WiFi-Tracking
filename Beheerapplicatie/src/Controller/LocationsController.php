@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 
 /**

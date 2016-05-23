@@ -1,7 +1,7 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\ReceivedRequest;
+use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -78,10 +78,9 @@ class ReceivedRequestsTable extends Table
     }
 
     public function findRelatedReceivedRequests(Query $query, array $options) {
-	    $sql_command = sprintf('
-			SELECT *
-			FROM funcGetReceivedRequests(%s)
-			', $options['id']);
-	    return $this->query($sql_command)->toArray();
+	    $sql = sprintf('SELECT funcGetReceivedRequests(%d)', $options['id']);
+	    $connection = ConnectionManager::get('default');
+	    $results = $connection->execute($sql)->fetchAll('assoc');
+	    return $results;
     }
 }
