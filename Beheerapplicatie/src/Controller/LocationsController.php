@@ -15,6 +15,7 @@ class LocationsController extends AppController
      * Index method
      *
      * @return \Cake\Network\Response|null
+     * @author Frank Schutte
      */
     public function index()
     {
@@ -24,22 +25,8 @@ class LocationsController extends AppController
 
         $locations = $this->paginate($this->Locations);
 
-	    $current_time = gmdate('Y-m-d H:i:s');
 	    $monitoring_device_locations_table = TableRegistry::get('MonitoringDeviceLocations');
-	    $monitoring_device_locations = $monitoring_device_locations_table->find('all', [
-		    'contain' => ['MonitoringDevices']
-	    ]);
-
-	    $current_monitoring_device_locations = [];
-	    $date_format = 'Y-m-d H:i:s';
-        foreach($monitoring_device_locations as $monitoring_device_location) {
-	        if($current_time > date_format($monitoring_device_location['begin_date'], $date_format)) {
-			    if($monitoring_device_location['end_date'] == null ||
-				    $current_time < date_format($monitoring_device_location['end_date'], $date_format)) {
-				    array_push($current_monitoring_device_locations, $monitoring_device_location);
-			    }
-	        }
-        }
+	    $current_monitoring_device_locations = $monitoring_device_locations_table->find('current');
 
         $this->set(compact('locations'));
 	    $this->set(compact('current_monitoring_device_locations'));
@@ -52,6 +39,7 @@ class LocationsController extends AppController
      * @param string|null $id Location id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function view($id = null)
     {
@@ -77,6 +65,7 @@ class LocationsController extends AppController
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
+     * @author Frank Schutte
      */
     public function add()
     {
@@ -105,6 +94,7 @@ class LocationsController extends AppController
      * @param string|null $id Location id.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function edit($id = null)
     {
@@ -135,6 +125,7 @@ class LocationsController extends AppController
      * @param string|null $id Location id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function delete($id = null)
     {

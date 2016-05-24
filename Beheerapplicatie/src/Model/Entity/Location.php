@@ -38,6 +38,12 @@ class Location extends Entity
         'id' => false,
     ];
 
+	/**
+	 * Method to create and return a good formatted location notation.
+	 *
+	 * @return string
+	 * @author Frank Schutte
+	 */
     public function _getFullLocationName() {
 	    $location_table = TableRegistry::get('Locations');
 	    $location = $location_table->get($this->_properties['id'], [
@@ -54,6 +60,13 @@ class Location extends Entity
         return $full_location_name;
     }
 
+	/**
+	 * Method to add a leading zero to a string value
+	 *
+	 * @param $value
+	 * @return string
+	 * @author Frank Schutte
+	 */
 	private function leadingZero($value) {
 		if($value >= 0 && $value < 10) {
 			return '0' . $value;

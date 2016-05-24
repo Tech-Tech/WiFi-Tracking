@@ -77,6 +77,14 @@ class ReceivedRequestsTable extends Table
         return $rules;
     }
 
+    /**
+     * Method to search all received request, a stored procedure is used.
+     *
+     * @param Query $query
+     * @param array $options
+     * @return mixed
+     * @author Frank Schutte
+     */
     public function findRelatedReceivedRequests(Query $query, array $options) {
 	    $sql = sprintf('SELECT funcGetReceivedRequests(%d)', $options['id']);
 	    $connection = ConnectionManager::get('default');

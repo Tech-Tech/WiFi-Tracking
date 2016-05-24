@@ -33,8 +33,14 @@ class Address extends Entity
         'id' => false,
     ];
 
+	/**
+	 * Method to create and return a good formatted address.
+	 *
+	 * @return string
+	 * @author Frank Schutte
+	 */
     public function _getFullAddress() {
-	    $address_table = TableRegistry::get('Addresses');
+	    $address_table = TableRegistry::get('addresses');
 	    $address = $address_table->get($this->_properties['id'], [
 		    'contain' => ['Cities', 'Streets']
 	    ]);

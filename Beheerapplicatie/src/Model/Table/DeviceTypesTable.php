@@ -28,11 +28,6 @@ class DeviceTypesTable extends Table
         $this->table('device_types');
         $this->displayField('device_type');
         $this->primaryKey('device_id');
-
-//        $this->belongsTo('Devices', [
-//            'foreignKey' => 'device_id',
-//            'joinType' => 'INNER'
-//        ]);
     }
 
     /**
