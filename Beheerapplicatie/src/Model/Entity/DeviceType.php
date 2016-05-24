@@ -4,14 +4,13 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * StaticDevice Entity.
+ * DeviceType Entity.
  *
- * @property string $mac_address
- * @property int $device_type
- * @property string $vendor
- * @property string $name
+ * @property int $device_id
+ * @property \App\Model\Entity\Device $device
+ * @property string $device_type
  */
-class StaticDevice extends Entity
+class DeviceType extends Entity
 {
 
     /**
@@ -25,6 +24,6 @@ class StaticDevice extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'mac_address' => false,
+        'device_id' => false,
     ];
 }

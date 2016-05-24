@@ -64,7 +64,9 @@ class LocationsController extends AppController
 	    ]);
 
 	    $received_requests_table = TableRegistry::get('received_requests');
-	    $received_requests = $received_requests_table->find('RelatedReceivedRequests', ['id' => $id]);
+	    $received_requests = $received_requests_table->find('RelatedReceivedRequests', [
+		    'id' => $id
+	    ]);
 
         $this->set('location', $location);
 	    $this->set('received_requests', $received_requests);

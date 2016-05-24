@@ -1,11 +1,6 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Static Device'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="staticDevices index large-9 medium-8 columns content">
     <h3><?= __('Static Devices') ?></h3>
+	<?= $this->Html->link(__('Add Static Device'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -20,7 +15,7 @@
             <?php foreach ($staticDevices as $staticDevice): ?>
             <tr>
                 <td><?= h($staticDevice->mac_address) ?></td>
-                <td><?= h($staticDevice->device_type) ?></td>
+                <td><?= $this->Number->format($staticDevice->device_type) ?></td>
                 <td><?= h($staticDevice->vendor) ?></td>
                 <td><?= h($staticDevice->name) ?></td>
                 <td class="actions">
