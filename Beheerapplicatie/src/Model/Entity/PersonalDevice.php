@@ -6,12 +6,10 @@ use Cake\ORM\Entity;
 /**
  * PersonalDevice Entity.
  *
- * @property string $mac_address
+ * @property int $id
+ * @property int $tracked_device_id
  * @property int $person_id
  * @property \App\Model\Entity\Person $person
- * @property string $device_type
- * @property string $vendor
- * @property string $name
  */
 class PersonalDevice extends Entity
 {

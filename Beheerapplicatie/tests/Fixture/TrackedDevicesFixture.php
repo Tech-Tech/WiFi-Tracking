@@ -17,13 +17,14 @@ class TrackedDevicesFixture extends TestFixture
      */
     // @codingStandardsIgnoreStart
     public $fields = [
-        'mac_address' => ['type' => 'string', 'length' => 24, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'fixed' => null],
+        'id' => ['type' => 'integer', 'length' => 10, 'autoIncrement' => true, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'unsigned' => null],
         'device_type' => ['type' => 'integer', 'length' => 10, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'unsigned' => null, 'autoIncrement' => null],
+        'mac_address' => ['type' => 'string', 'length' => 24, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'fixed' => null],
         'vendor' => ['type' => 'string', 'length' => 256, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'fixed' => null],
         'name' => ['type' => 'string', 'length' => 256, 'default' => null, 'null' => true, 'comment' => null, 'precision' => null, 'fixed' => null],
         '_constraints' => [
-            'primary' => ['type' => 'primary', 'columns' => ['mac_address'], 'length' => []],
-            'fk_tracked__device_ty_device_t' => ['type' => 'foreign', 'columns' => ['device_type'], 'references' => ['device_types', 'device_id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
+            'fk_tracked_device_type' => ['type' => 'foreign', 'columns' => ['device_type'], 'references' => ['device_types', 'id'], 'update' => 'cascade', 'delete' => 'setNull', 'length' => []],
         ],
     ];
     // @codingStandardsIgnoreEnd
@@ -35,8 +36,9 @@ class TrackedDevicesFixture extends TestFixture
      */
     public $records = [
         [
-            'mac_address' => '601d5c3b-1b4e-46a9-9801-95717f7bd369',
+            'id' => 1,
             'device_type' => 1,
+            'mac_address' => 'Lorem ipsum dolor sit ',
             'vendor' => 'Lorem ipsum dolor sit amet',
             'name' => 'Lorem ipsum dolor sit amet'
         ],

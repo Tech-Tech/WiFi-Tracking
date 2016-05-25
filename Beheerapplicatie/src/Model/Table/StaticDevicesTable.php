@@ -1,7 +1,7 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\StaticDevice;
+use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
 /**
  * StaticDevices Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $TrackedDevices
  */
 class StaticDevicesTable extends Table
 {
@@ -25,8 +26,12 @@ class StaticDevicesTable extends Table
         parent::initialize($config);
 
         $this->table('static_devices');
-        $this->displayField('name');
-        $this->primaryKey('mac_address');
+        $this->primaryKey('id');
+
+        $this->belongsTo('TrackedDevices', [
+            'foreignKey' => 'tracked_device_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -38,19 +43,29 @@ class StaticDevicesTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->allowEmpty('mac_address', 'create');
-
-        $validator
-            ->requirePresence('device_type', 'create')
-            ->notEmpty('device_type');
-
-        $validator
-            ->requirePresence('vendor', 'create')
-            ->notEmpty('vendor');
-
-        $validator
-            ->allowEmpty('name');
+            ->integer('id')
+            ->allowEmpty('id', 'create');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['tracked_device_id'], 'TrackedDevices'));
+        return $rules;
+    }
+
+    public function findNonStaticDevices(Query $query, array $options) {
+        $sql = 'SELECT funcGetNonStaticDevices()';
+        $connection = ConnectionManager::get('default');
+        $results = $connection->execute($sql)->fetchAll('assoc');
+        return $results;
     }
 }
