@@ -45,7 +45,7 @@
 	            <tr>
 	                <td><?= $this->Html->link($monitoringDeviceLocation->monitoring_device->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $monitoringDeviceLocation->monitoring_device->id]) ?></td>
 	                <td><?= date_format($monitoringDeviceLocation->begin_date, 'D d M Y H:i') ?></td>
-	                <td><?= date_format($monitoringDeviceLocation->end_date, 'D d M Y H:i')?></td>
+	                <td><?= (!is_null($monitoringDeviceLocation->end_date)) ? (date_format($monitoringDeviceLocation->end_date, 'D d M Y H:i')) : ('') ?></td>
 		            <td class="actions">
 			            <?= $this->Form->postLink(__('Delete'), ['controller' => 'MonitoringDeviceLocations', 'action' => 'delete', $monitoringDeviceLocation->id, '?' => ['id' => $monitoringDeviceLocation->location_id]], ['confirm' => __('Are you sure you want to delete # {0}?', $monitoringDeviceLocation->id)]) ?>
 		            </td>
@@ -70,8 +70,8 @@
                     <tr>
 	                    <?php $decoded_request = json_decode($received_request['funcgetreceivedrequests'], false) ?>
 	                    <td><?= $this->Html->link($decoded_request->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $decoded_request->id]) ?></td>
-	                    <td><?= h($decoded_request->tracked_mac_address) ?></td>
-	                    <td><?= date_format($decoded_request->request_timestamp, 'Y-m-d H:i:s') ?></td>
+	                    <td><?= h($decoded_request->tracked_device_id) ?></td>
+	                    <td><?= date('D d M Y H:i', strtotime($decoded_request->request_timestamp)) ?></td>
 	                    <td><?= $this->Number->format($decoded_request->signal_strength) ?></td>
                     </tr>
                 <?php endforeach; ?>

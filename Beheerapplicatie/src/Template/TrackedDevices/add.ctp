@@ -1,9 +1,3 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Tracked Devices'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
 <div class="trackedDevices form large-9 medium-8 columns content">
     <?= $this->Form->create($trackedDevice) ?>
     <fieldset>

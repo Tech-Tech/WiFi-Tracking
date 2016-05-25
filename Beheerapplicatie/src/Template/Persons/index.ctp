@@ -1,13 +1,3 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Person'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Person Roles'), ['controller' => 'PersonRoles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Person Role'), ['controller' => 'PersonRoles', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Personal Devices'), ['controller' => 'PersonalDevices', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Personal Device'), ['controller' => 'PersonalDevices', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="persons index large-9 medium-8 columns content">
     <h3><?= __('Persons') ?></h3>
     <table cellpadding="0" cellspacing="0">
