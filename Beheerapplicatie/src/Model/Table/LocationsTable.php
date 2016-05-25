@@ -1,8 +1,6 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Location;
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -31,7 +29,7 @@ class LocationsTable extends Table
         parent::initialize($config);
 
         $this->table('locations');
-        $this->displayField('name');
+        $this->displayField('id');
         $this->primaryKey('id');
 
         $this->belongsTo('Wings', [

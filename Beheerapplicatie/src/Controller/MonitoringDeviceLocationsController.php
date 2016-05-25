@@ -15,6 +15,7 @@ class MonitoringDeviceLocationsController extends AppController
      * Index method
      *
      * @return \Cake\Network\Response|null
+     * @author Frank Schutte
      */
     public function index()
     {
@@ -33,6 +34,7 @@ class MonitoringDeviceLocationsController extends AppController
      * @param string|null $id Monitoring Device Location id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function view($id = null)
     {
@@ -48,20 +50,24 @@ class MonitoringDeviceLocationsController extends AppController
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
+     * @author Frank Schutte
      */
-    public function add()
+    public function add($id = null)
     {
         $monitoringDeviceLocation = $this->MonitoringDeviceLocations->newEntity();
         if ($this->request->is('post')) {
+	        debug($this->request->data);
             $monitoringDeviceLocation = $this->MonitoringDeviceLocations->patchEntity($monitoringDeviceLocation, $this->request->data);
             if ($this->MonitoringDeviceLocations->save($monitoringDeviceLocation)) {
                 $this->Flash->success(__('The monitoring device location has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Locations', 'action' => 'view', $id]);
             } else {
                 $this->Flash->error(__('The monitoring device location could not be saved. Please, try again.'));
             }
         }
-        $locations = $this->MonitoringDeviceLocations->Locations->find('list', ['limit' => 200]);
+        $locations = $this->MonitoringDeviceLocations->Locations->find('list', [
+            'conditions' => ['id' => $id]
+        ]);
         $monitoringDevices = $this->MonitoringDeviceLocations->MonitoringDevices->find('list', ['limit' => 200]);
         $this->set(compact('monitoringDeviceLocation', 'locations', 'monitoringDevices'));
         $this->set('_serialize', ['monitoringDeviceLocation']);
@@ -73,6 +79,7 @@ class MonitoringDeviceLocationsController extends AppController
      * @param string|null $id Monitoring Device Location id.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function edit($id = null)
     {
@@ -100,6 +107,7 @@ class MonitoringDeviceLocationsController extends AppController
      * @param string|null $id Monitoring Device Location id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function delete($id = null)
     {
@@ -110,6 +118,6 @@ class MonitoringDeviceLocationsController extends AppController
         } else {
             $this->Flash->error(__('The monitoring device location could not be deleted. Please, try again.'));
         }
-        return $this->redirect(['action' => 'index']);
+	    return $this->redirect(['controller' => 'Locations', 'action' => 'view', $this->request->query['id']]);
     }
 }

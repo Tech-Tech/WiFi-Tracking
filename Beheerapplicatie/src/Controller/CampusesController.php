@@ -15,6 +15,7 @@ class CampusesController extends AppController
      * Index method
      *
      * @return \Cake\Network\Response|null
+     * @author Frank Schutte
      */
     public function index()
     {
@@ -30,11 +31,12 @@ class CampusesController extends AppController
      * @param string|null $id Campus id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function view($id = null)
     {
         $campus = $this->Campuses->get($id, [
-            'contain' => ['Buildings']
+            'contain' => ['Buildings' => ['Addresses']]
         ]);
 
         $this->set('campus', $campus);
@@ -45,6 +47,7 @@ class CampusesController extends AppController
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
+     * @author Frank Schutte
      */
     public function add()
     {
@@ -68,6 +71,7 @@ class CampusesController extends AppController
      * @param string|null $id Campus id.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function edit($id = null)
     {

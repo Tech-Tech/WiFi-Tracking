@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Locations Controller
@@ -15,15 +15,21 @@ class LocationsController extends AppController
      * Index method
      *
      * @return \Cake\Network\Response|null
+     * @author Frank Schutte
      */
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings']
+            'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses']]
         ];
+
         $locations = $this->paginate($this->Locations);
 
+	    $monitoring_device_locations_table = TableRegistry::get('MonitoringDeviceLocations');
+	    $current_monitoring_device_locations = $monitoring_device_locations_table->find('current');
+
         $this->set(compact('locations'));
+	    $this->set(compact('current_monitoring_device_locations'));
         $this->set('_serialize', ['locations']);
     }
 
@@ -33,14 +39,25 @@ class LocationsController extends AppController
      * @param string|null $id Location id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function view($id = null)
     {
-        $location = $this->Locations->get($id, [
-            'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings', 'MonitoringDeviceLocations']
-        ]);
+	    $this->paginate = [
+		    'fields' => ['id', 'name', 'tracked_mac_address', 'request_timestamp', 'signal_strength']
+	    ];
+
+	    $location = $this->Locations->get($id, [
+		    'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses'], 'MonitoringDeviceLocations' => ['MonitoringDevices' => ['ReceivedRequests']]]
+	    ]);
+
+	    $received_requests_table = TableRegistry::get('received_requests');
+	    $received_requests = $received_requests_table->find('RelatedReceivedRequests', [
+		    'id' => $id
+	    ]);
 
         $this->set('location', $location);
+	    $this->set('received_requests', $received_requests);
         $this->set('_serialize', ['location']);
     }
 
@@ -48,6 +65,7 @@ class LocationsController extends AppController
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
+     * @author Frank Schutte
      */
     public function add()
     {
@@ -76,6 +94,7 @@ class LocationsController extends AppController
      * @param string|null $id Location id.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function edit($id = null)
     {
@@ -106,6 +125,7 @@ class LocationsController extends AppController
      * @param string|null $id Location id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @author Frank Schutte
      */
     public function delete($id = null)
     {

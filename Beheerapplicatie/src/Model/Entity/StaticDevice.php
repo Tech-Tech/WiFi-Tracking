@@ -7,7 +7,7 @@ use Cake\ORM\Entity;
  * StaticDevice Entity.
  *
  * @property string $mac_address
- * @property string $device_type
+ * @property int $device_type
  * @property string $vendor
  * @property string $name
  */

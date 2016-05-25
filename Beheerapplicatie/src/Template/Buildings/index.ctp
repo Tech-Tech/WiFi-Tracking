@@ -1,21 +1,9 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Building'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Addresses'), ['controller' => 'Addresses', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Address'), ['controller' => 'Addresses', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Campuses'), ['controller' => 'Campuses', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Campus'), ['controller' => 'Campuses', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="buildings index large-9 medium-8 columns content">
     <h3><?= __('Buildings') ?></h3>
+    <?= $this->Html->link('Add building', ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('address_id') ?></th>
                 <th><?= $this->Paginator->sort('campus_id') ?></th>
                 <th><?= $this->Paginator->sort('name') ?></th>
@@ -25,9 +13,8 @@
         <tbody>
             <?php foreach ($buildings as $building): ?>
             <tr>
-                <td><?= $this->Number->format($building->id) ?></td>
-                <td><?= $building->has('address') ? $this->Html->link($building->address->id, ['controller' => 'Addresses', 'action' => 'view', $building->address->id]) : '' ?></td>
-                <td><?= $building->has('campus') ? $this->Html->link($building->campus->name, ['controller' => 'Campuses', 'action' => 'view', $building->campus->id]) : '' ?></td>
+                <td><?= $building->address->full_address ?></td>
+                <td><?= $this->Html->link($building->campus->name, ['controller' => 'Campuses', 'action' => 'view', $building->campus->id]) ?></td>
                 <td><?= h($building->name) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $building->id]) ?>

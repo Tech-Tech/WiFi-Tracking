@@ -1,32 +1,11 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Location'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Wings'), ['controller' => 'Wings', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Wing'), ['controller' => 'Wings', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Floors'), ['controller' => 'Floors', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Floor'), ['controller' => 'Floors', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Rooms'), ['controller' => 'Rooms', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Room'), ['controller' => 'Rooms', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Suffixes'), ['controller' => 'Suffixes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Suffix'), ['controller' => 'Suffixes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Buildings'), ['controller' => 'Buildings', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Building'), ['controller' => 'Buildings', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Monitoring Device Locations'), ['controller' => 'MonitoringDeviceLocations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Monitoring Device Location'), ['controller' => 'MonitoringDeviceLocations', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="locations index large-9 medium-8 columns content">
     <h3><?= __('Locations') ?></h3>
+	<?= $this->Html->link(__('Add location'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('wing_id') ?></th>
-                <th><?= $this->Paginator->sort('floor_id') ?></th>
-                <th><?= $this->Paginator->sort('room_id') ?></th>
-                <th><?= $this->Paginator->sort('suffix_id') ?></th>
-                <th><?= $this->Paginator->sort('building_id') ?></th>
+                <th><?= __('Location') ?></th>
+	            <th><?= __('Current connected monitoring devices') ?></th>
                 <th><?= $this->Paginator->sort('name') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -34,12 +13,14 @@
         <tbody>
             <?php foreach ($locations as $location): ?>
             <tr>
-                <td><?= $this->Number->format($location->id) ?></td>
-                <td><?= $location->has('wing') ? $this->Html->link($location->wing->id, ['controller' => 'Wings', 'action' => 'view', $location->wing->id]) : '' ?></td>
-                <td><?= $location->has('floor') ? $this->Html->link($location->floor->id, ['controller' => 'Floors', 'action' => 'view', $location->floor->id]) : '' ?></td>
-                <td><?= $location->has('room') ? $this->Html->link($location->room->id, ['controller' => 'Rooms', 'action' => 'view', $location->room->id]) : '' ?></td>
-                <td><?= $location->has('suffix') ? $this->Html->link($location->suffix->id, ['controller' => 'Suffixes', 'action' => 'view', $location->suffix->id]) : '' ?></td>
-                <td><?= $location->has('building') ? $this->Html->link($location->building->name, ['controller' => 'Buildings', 'action' => 'view', $location->building->id]) : '' ?></td>
+	            <td><?= $location->full_location_name ?></td>
+	            <td>
+		            <?php foreach($current_monitoring_device_locations as $monitoring_device_location): ?>
+		                <?php if($monitoring_device_location->location_id == $location->id): ?>
+			                <?= $this->Html->link($monitoring_device_location->monitoring_device->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $monitoring_device_location->monitoring_device_id]) ?>
+			            <?php endif; ?>
+		            <?php endforeach; ?>
+	            </td>
                 <td><?= h($location->name) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $location->id]) ?>

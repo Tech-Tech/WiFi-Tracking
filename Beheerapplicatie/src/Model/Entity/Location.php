@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\ORM\TableRegistry;
 
 /**
  * Location Entity.
@@ -36,4 +37,40 @@ class Location extends Entity
         '*' => true,
         'id' => false,
     ];
+
+	/**
+	 * Method to create and return a good formatted location notation.
+	 *
+	 * @return string
+	 * @author Frank Schutte
+	 */
+    public function _getFullLocationName() {
+	    $location_table = TableRegistry::get('Locations');
+	    $location = $location_table->get($this->_properties['id'], [
+		    'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses'], 'MonitoringDeviceLocations']
+	    ]);
+	    $full_location_name =
+		    $location['building']['campus']['name'] . ' ' .
+		    $location['building']['name'] . ' ' .
+		    $location['wing']['wing_code'] .
+		    $location['floor']['floor_number'] . '.' .
+	        $this->leadingZero($location['room']['room_number']) . ' ' .
+	        $location['suffix']['suffix'];
+
+        return $full_location_name;
+    }
+
+	/**
+	 * Method to add a leading zero to a string value
+	 *
+	 * @param $value
+	 * @return string
+	 * @author Frank Schutte
+	 */
+	private function leadingZero($value) {
+		if($value >= 0 && $value < 10) {
+			return '0' . $value;
+		}
+		return $value;
+	}
 }

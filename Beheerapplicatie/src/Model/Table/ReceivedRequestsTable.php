@@ -1,7 +1,7 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\ReceivedRequest;
+use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -75,5 +75,20 @@ class ReceivedRequestsTable extends Table
     {
         $rules->add($rules->existsIn(['monitoring_device_id'], 'MonitoringDevices'));
         return $rules;
+    }
+
+    /**
+     * Method to search all received request, a stored procedure is used.
+     *
+     * @param Query $query
+     * @param array $options
+     * @return mixed
+     * @author Frank Schutte
+     */
+    public function findRelatedReceivedRequests(Query $query, array $options) {
+	    $sql = sprintf('SELECT funcGetReceivedRequests(%d)', $options['id']);
+	    $connection = ConnectionManager::get('default');
+	    $results = $connection->execute($sql)->fetchAll('assoc');
+	    return $results;
     }
 }

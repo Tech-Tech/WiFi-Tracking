@@ -26,7 +26,7 @@ class SuffixesTable extends Table
         parent::initialize($config);
 
         $this->table('suffixes');
-        $this->displayField('id');
+        $this->displayField('suffix');
         $this->primaryKey('id');
 
         $this->hasMany('Locations', [

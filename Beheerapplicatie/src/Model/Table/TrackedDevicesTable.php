@@ -41,7 +41,6 @@ class TrackedDevicesTable extends Table
             ->allowEmpty('mac_address', 'create');
 
         $validator
-            ->integer('device_type')
             ->requirePresence('device_type', 'create')
             ->notEmpty('device_type');
 

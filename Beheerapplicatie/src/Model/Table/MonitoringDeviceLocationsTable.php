@@ -77,4 +77,29 @@ class MonitoringDeviceLocationsTable extends Table
         $rules->add($rules->existsIn(['monitoring_device_id'], 'MonitoringDevices'));
         return $rules;
     }
+
+    /**
+     * Find all monitoring device locations which are currently connected to any location.
+     *
+     * @return array
+     * @author Frank Schutte
+     */
+    public function findCurrent() {
+        $current_time = gmdate('Y-m-d H:i:s');
+        $monitoring_device_locations = $this->find('all', [
+            'contain' => ['MonitoringDevices']
+        ]);
+
+        $current_monitoring_device_locations = [];
+        $date_format = 'Y-m-d H:i:s';
+        foreach($monitoring_device_locations as $monitoring_device_location) {
+            if($current_time > date_format($monitoring_device_location['begin_date'], $date_format)) {
+                if($monitoring_device_location['end_date'] == null ||
+                    $current_time < date_format($monitoring_device_location['end_date'], $date_format)) {
+                    array_push($current_monitoring_device_locations, $monitoring_device_location);
+                }
+            }
+        }
+        return $current_monitoring_device_locations;
+    }
 }
