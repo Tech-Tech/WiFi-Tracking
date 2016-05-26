@@ -40,6 +40,9 @@ class TrackedDevicesTable extends Table
         $this->hasMany('StaticDevices', [
             'foreignKey' => 'tracked_device_id'
         ]);
+        $this->hasOne('DeviceTypes', [
+            'foreignKey' => 'id'
+        ]);
     }
 
     /**

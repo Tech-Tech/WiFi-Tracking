@@ -20,7 +20,7 @@ class StaticDevicesController extends AppController
     {
         $staticDevices = $this->paginate(
 	        $this->StaticDevices->find('all', [
-		        'contain' => ['TrackedDevices']
+		        'contain' => ['TrackedDevices' => ['DeviceTypes']]
 	        ])
         );
 
@@ -55,7 +55,6 @@ class StaticDevicesController extends AppController
         $staticDevice = $this->StaticDevices->newEntity();
         if ($this->request->is('post')) {
 	        $data = $this->request->data;
-	        debug($data);
 	        $static_device_data = [
 		        'tracked_device_id' => $data['tracked_device_id']
 	        ];

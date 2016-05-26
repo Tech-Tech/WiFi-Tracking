@@ -27,8 +27,7 @@ class PersonalDevicesTable extends Table
         parent::initialize($config);
 
         $this->table('personal_devices');
-        $this->displayField('name');
-        $this->primaryKey('mac_address');
+        $this->primaryKey('id');
 
         $this->belongsTo('TrackedDevices', [
             'foreignKey' => 'tracked_device_id',
