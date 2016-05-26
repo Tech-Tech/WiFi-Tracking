@@ -6,10 +6,8 @@ use Cake\ORM\Entity;
 /**
  * StaticDevice Entity.
  *
- * @property string $mac_address
- * @property int $device_type
- * @property string $vendor
- * @property string $name
+ * @property int $id
+ * @property int $tracked_device_id
  */
 class StaticDevice extends Entity
 {

@@ -17,7 +17,8 @@ class PersonalDevicesControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.personal_devices',
-        'app.persons'
+        'app.persons',
+        'app.person_roles'
     ];
 
     /**

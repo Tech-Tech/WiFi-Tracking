@@ -3,6 +3,7 @@
     <fieldset>
         <legend><?= __('Add Tracked Device') ?></legend>
         <?php
+            echo $this->Form->input('id');
             echo $this->Form->input('device_type');
             echo $this->Form->input('vendor');
             echo $this->Form->input('name');

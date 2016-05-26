@@ -10,6 +10,9 @@ use Cake\Validation\Validator;
 /**
  * TrackedDevices Model
  *
+ * @property \Cake\ORM\Association\HasMany $PersonalDevices
+ * @property \Cake\ORM\Association\HasMany $ReceivedRequests
+ * @property \Cake\ORM\Association\HasMany $StaticDevices
  */
 class TrackedDevicesTable extends Table
 {
@@ -25,8 +28,21 @@ class TrackedDevicesTable extends Table
         parent::initialize($config);
 
         $this->table('tracked_devices');
-        $this->displayField('name');
-        $this->primaryKey('mac_address');
+        $this->displayField('mac_address');
+        $this->primaryKey('id');
+
+        $this->hasMany('PersonalDevices', [
+            'foreignKey' => 'tracked_device_id'
+        ]);
+        $this->hasMany('ReceivedRequests', [
+            'foreignKey' => 'tracked_device_id'
+        ]);
+        $this->hasMany('StaticDevices', [
+            'foreignKey' => 'tracked_device_id'
+        ]);
+        $this->hasOne('DeviceTypes', [
+            'foreignKey' => 'id'
+        ]);
     }
 
     /**
@@ -38,10 +54,10 @@ class TrackedDevicesTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->allowEmpty('mac_address', 'create');
+            ->integer('id')
+            ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('device_type', 'create')
             ->notEmpty('device_type');
 
         $validator

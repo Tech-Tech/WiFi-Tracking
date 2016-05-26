@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -20,7 +19,11 @@ class StaticDevicesController extends AppController
      */
     public function index()
     {
-        $staticDevices = $this->paginate($this->StaticDevices);
+        $staticDevices = $this->paginate(
+	        $this->StaticDevices->find('all', [
+		        'contain' => ['TrackedDevices' => ['DeviceTypes']]
+	        ])
+        );
 
         $this->set(compact('staticDevices'));
         $this->set('_serialize', ['staticDevices']);
@@ -54,7 +57,11 @@ class StaticDevicesController extends AppController
     {
         $staticDevice = $this->StaticDevices->newEntity();
         if ($this->request->is('post')) {
-            $staticDevice = $this->StaticDevices->patchEntity($staticDevice, $this->request->data);
+	        $data = $this->request->data;
+	        $static_device_data = [
+		        'tracked_device_id' => $data['tracked_device_id']
+	        ];
+            $staticDevice = $this->StaticDevices->patchEntity($staticDevice, $static_device_data);
             if ($this->StaticDevices->save($staticDevice)) {
                 $this->Flash->success(__('The static device has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -62,10 +69,9 @@ class StaticDevicesController extends AppController
                 $this->Flash->error(__('The static device could not be saved. Please, try again.'));
             }
         }
-	    $device_types_table = TableRegistry::get('device_types');
-	    $device_types = $device_types_table->find('all');
+	    $tracked_devices = $this->StaticDevices->find('NonStaticDevices');
+	    $this->set('tracked_devices', $tracked_devices);
         $this->set(compact('staticDevice'));
-	    $this->set('device_types', $device_types);
         $this->set('_serialize', ['staticDevice']);
     }
 

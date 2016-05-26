@@ -14,6 +14,10 @@
             <td><?= h($trackedDevice->name) ?></td>
         </tr>
         <tr>
+            <th><?= __('Id') ?></th>
+            <td><?= $this->Number->format($trackedDevice->id) ?></td>
+        </tr>
+        <tr>
             <th><?= __('Device Type') ?></th>
             <td><?= $this->Number->format($trackedDevice->device_type) ?></td>
         </tr>
