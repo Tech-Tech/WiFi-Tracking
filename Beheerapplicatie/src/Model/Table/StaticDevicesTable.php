@@ -62,6 +62,15 @@ class StaticDevicesTable extends Table
         return $rules;
     }
 
+    /**
+     * Find all devices that are in the tracked_devices table, except the ones which are in the
+     * static_devices table.
+     *
+     * @param Query $query
+     * @param array $options
+     * @return mixed
+     * @author Frank Schutte
+     */
     public function findNonStaticDevices(Query $query, array $options) {
         $sql = 'SELECT funcGetNonStaticDevices()';
         $connection = ConnectionManager::get('default');
