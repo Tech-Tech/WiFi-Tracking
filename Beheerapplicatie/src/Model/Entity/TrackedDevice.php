@@ -6,8 +6,9 @@ use Cake\ORM\Entity;
 /**
  * TrackedDevice Entity.
  *
- * @property string $mac_address
+ * @property int $id
  * @property int $device_type
+ * @property string $mac_address
  * @property string $vendor
  * @property string $name
  */

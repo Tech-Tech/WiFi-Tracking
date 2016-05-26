@@ -70,7 +70,7 @@
                     <tr>
 	                    <?php $decoded_request = json_decode($received_request['funcgetreceivedrequests'], false) ?>
 	                    <td><?= $this->Html->link($decoded_request->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $decoded_request->id]) ?></td>
-	                    <td><?= h($decoded_request->tracked_device_id) ?></td>
+	                    <td><?= h($decoded_request->mac_address) ?></td>
 	                    <td><?= date('D d M Y H:i', strtotime($decoded_request->request_timestamp)) ?></td>
 	                    <td><?= $this->Number->format($decoded_request->signal_strength) ?></td>
                     </tr>

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * TrackedDevices Controller
@@ -19,7 +20,9 @@ class TrackedDevicesController extends AppController
      */
     public function index()
     {
-        $trackedDevices = $this->paginate($this->TrackedDevices);
+        $trackedDevices = $this->paginate($this->TrackedDevices->find('all', [
+            'contain' => ['DeviceTypes']
+        ]));
 
         $this->set(compact('trackedDevices'));
         $this->set('_serialize', ['trackedDevices']);
@@ -87,6 +90,9 @@ class TrackedDevicesController extends AppController
                 $this->Flash->error(__('The tracked device could not be saved. Please, try again.'));
             }
         }
+	    $device_types_table = TableRegistry::get('device_types');
+	    $device_types = $device_types_table->find('all')->all();
+	    $this->set('device_types', $device_types);
         $this->set(compact('trackedDevice'));
         $this->set('_serialize', ['trackedDevice']);
     }

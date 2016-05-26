@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
 /**
  * PersonalDevices Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $TrackedDevices
  * @property \Cake\ORM\Association\BelongsTo $Persons
  */
 class PersonalDevicesTable extends Table
@@ -26,9 +27,12 @@ class PersonalDevicesTable extends Table
         parent::initialize($config);
 
         $this->table('personal_devices');
-        $this->displayField('name');
-        $this->primaryKey('mac_address');
+        $this->primaryKey('id');
 
+        $this->belongsTo('TrackedDevices', [
+            'foreignKey' => 'tracked_device_id',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsTo('Persons', [
             'foreignKey' => 'person_id',
             'joinType' => 'INNER'
@@ -44,17 +48,8 @@ class PersonalDevicesTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->allowEmpty('mac_address', 'create');
-
-        $validator
-            ->allowEmpty('device_type');
-
-        $validator
-            ->requirePresence('vendor', 'create')
-            ->notEmpty('vendor');
-
-        $validator
-            ->allowEmpty('name');
+            ->integer('id')
+            ->allowEmpty('id', 'create');
 
         return $validator;
     }
@@ -68,6 +63,7 @@ class PersonalDevicesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->existsIn(['tracked_device_id'], 'TrackedDevices'));
         $rules->add($rules->existsIn(['person_id'], 'Persons'));
         return $rules;
     }

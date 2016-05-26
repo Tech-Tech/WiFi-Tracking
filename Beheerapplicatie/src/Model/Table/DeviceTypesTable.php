@@ -26,8 +26,13 @@ class DeviceTypesTable extends Table
         parent::initialize($config);
 
         $this->table('device_types');
-        $this->displayField('device_type');
-        $this->primaryKey('device_id');
+	    $this->displayField('device_type');
+        $this->primaryKey('id');
+
+        $this->belongsToMany('TrackedDevices', [
+            'foreignKey' => 'device_type_id',
+	        'joinType' => 'INNER'
+        ]);
     }
 
     /**
