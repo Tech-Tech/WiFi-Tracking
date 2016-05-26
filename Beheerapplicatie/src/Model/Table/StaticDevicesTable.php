@@ -46,6 +46,9 @@ class StaticDevicesTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create');
 
+	    $validator
+		    ->notEmpty('tracked_device_id');
+
         return $validator;
     }
 
