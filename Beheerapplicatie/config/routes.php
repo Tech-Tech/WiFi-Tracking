@@ -49,6 +49,10 @@ Router::scope('/', function (RouteBuilder $routes) {
         $routes->fallbacks('DashedRoute');
     });
 
+    Router::prefix('analyze', function($routes) {
+        $routes->connect('', ['controller' => 'Analyze', 'action' => 'index']);
+        $routes->fallbacks('DashedRoute');
+    });
 
     /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',

@@ -1,10 +1,12 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Analyze;
+
+use App\Controller\AppController;
 
 /**
- * Home controller
+ * Manage Controller
  */
-class HomeController extends AppController
+class AnalyzeController extends AppController
 {
 
     /**
@@ -15,7 +17,8 @@ class HomeController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->viewBuilder()->layout('home');
+        $this->viewBuilder()->layout('analyze');
+
     }
 
     /**
@@ -26,5 +29,6 @@ class HomeController extends AppController
      */
     public function index()
     {
+
     }
 }
