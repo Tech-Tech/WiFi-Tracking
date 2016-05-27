@@ -1,15 +1,22 @@
 <?php
-namespace App\Controller;
-
-use App\Controller\AppController;
+namespace App\Controller\Manage;
 
 /**
  * Roles Controller
  *
  * @property \App\Model\Table\RolesTable $Roles
  */
-class RolesController extends AppController
+class RolesController extends ManageController
 {
+    /**
+     * Initialize method
+     *
+     * @author Albert Veldman
+     */
+    public function initialize()
+    {
+        parent::initialize();
+    }
 
     /**
      * Index method

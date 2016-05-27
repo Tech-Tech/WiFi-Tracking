@@ -1,15 +1,22 @@
 <?php
-namespace App\Controller;
-
-use App\Controller\AppController;
+namespace App\Controller\Manage;
 
 /**
  * ReceivedRequests Controller
  *
  * @property \App\Model\Table\ReceivedRequestsTable $ReceivedRequests
  */
-class ReceivedRequestsController extends AppController
+class ReceivedRequestsController extends ManageController
 {
+    /**
+     * Initialize method
+     *
+     * @author Albert Veldman
+     */
+    public function initialize()
+    {
+        parent::initialize();
+    }
 
     /**
      * Index method

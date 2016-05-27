@@ -1,15 +1,22 @@
 <?php
-namespace App\Controller;
-
-use App\Controller\AppController;
+namespace App\Controller\Manage;
 
 /**
  * Campuses Controller
  *
  * @property \App\Model\Table\CampusesTable $Campuses
  */
-class CampusesController extends AppController
+class CampusesController extends ManageController
 {
+    /**
+     * Initialize method
+     *
+     * @author Albert Veldman
+     */
+    public function initialize()
+    {
+        parent::initialize();
+    }
 
     /**
      * Index method

@@ -1,15 +1,23 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Manage;
 
-use App\Controller\AppController;
 
 /**
  * Suffixes Controller
  *
  * @property \App\Model\Table\SuffixesTable $Suffixes
  */
-class SuffixesController extends AppController
+class SuffixesController extends ManageController
 {
+    /**
+     * Initialize method
+     *
+     * @author Albert Veldman
+     */
+    public function initialize()
+    {
+        parent::initialize();
+    }
 
     /**
      * Index method

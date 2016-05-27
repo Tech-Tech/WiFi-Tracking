@@ -1,15 +1,22 @@
 <?php
-namespace App\Controller;
-
-use Cake\ORM\TableRegistry;
+namespace App\Controller\Manage;
 
 /**
  * StaticDevices Controller
  *
  * @property \App\Model\Table\StaticDevicesTable $StaticDevices
  */
-class StaticDevicesController extends AppController
+class StaticDevicesController extends ManageController
 {
+    /**
+     * Initialize method
+     *
+     * @author Albert Veldman
+     */
+    public function initialize()
+    {
+        parent::initialize();
+    }
 
     /**
      * Index method

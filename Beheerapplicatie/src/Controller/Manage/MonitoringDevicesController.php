@@ -1,15 +1,22 @@
 <?php
-namespace App\Controller;
-
-use App\Controller\AppController;
+namespace App\Controller\Manage;
 
 /**
  * MonitoringDevices Controller
  *
  * @property \App\Model\Table\MonitoringDevicesTable $MonitoringDevices
  */
-class MonitoringDevicesController extends AppController
+class MonitoringDevicesController extends ManageController
 {
+    /**
+     * Initialize method
+     *
+     * @author Albert Veldman
+     */
+    public function initialize()
+    {
+        parent::initialize();
+    }
 
     /**
      * Index method

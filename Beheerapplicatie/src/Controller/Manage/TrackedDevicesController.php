@@ -1,7 +1,6 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Manage;
 
-use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -9,8 +8,17 @@ use Cake\ORM\TableRegistry;
  *
  * @property \App\Model\Table\TrackedDevicesTable $TrackedDevices
  */
-class TrackedDevicesController extends AppController
+class TrackedDevicesController extends ManageController
 {
+    /**
+     * Initialize method
+     *
+     * @author Albert Veldman
+     */
+    public function initialize()
+    {
+        parent::initialize();
+    }
 
     /**
      * Index method
