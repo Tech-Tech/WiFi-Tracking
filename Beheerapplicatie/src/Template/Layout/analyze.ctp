@@ -29,7 +29,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
     <?= $this->Html->css('extra.css') ?>
-
+    <?= $this->Html->script('graph'); ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -50,8 +50,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <?= $this->Flash->render() ?>
 <div class="container clearfix">
     <?= $this->fetch('content') ?>
-    <?= $this->Html->link("Manage", ['controller' => 'Manage/Locations','action'=> 'index'], ['class' => 'button']); ?>
-    <?= $this->Html->link("Analyze", ['controller' => 'Analyze','action'=> 'index'], ['class' => 'button']); ?>
 </div>
 <footer>
 </footer>

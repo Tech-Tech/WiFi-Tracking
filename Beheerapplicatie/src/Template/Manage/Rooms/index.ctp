@@ -11,7 +11,7 @@
         <tbody>
             <?php foreach ($rooms as $room): ?>
             <tr>
-                <td><?= $this->Number->format($room->room_number) ?></td>
+                <td><?= h($room->room_number) ?></td>
                 <td class="actions">
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $room->id], ['confirm' => __('Are you sure you want to delete # {0}?', $room->id)]) ?>
                 </td>
