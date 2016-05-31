@@ -1,12 +1,16 @@
 <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+<?= $this->Form->create() ?>
 <fieldset>
-    <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations]) ?>
+	<legend><?= __('Select location and time period') ?></legend>
+        <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations]) ?>
+		<?= $this->Form->input('begin_date', ['type' => 'datetime-local']) ?>
+		<?= $this->Form->input('end_date', ['type' => 'datetime-local']) ?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>
 <?= $this->Form->end() ?>
 
 <div id="chart_div" style="width: 90%; height: 500px;"></div>
-
 
 <script>
     var devices = [];
@@ -35,8 +39,6 @@
 
         var options = {
             title: 'Devices in location',
-//            width: 100%,
-//            height: 500,
             vAxis: {
                 title: 'Amount of devices'
             },
@@ -51,32 +53,8 @@
 
             animation: {
                 startup: true,
-                duration: 1000,
+                duration: 5000,
                 easing: 'out'
-            },
-
-            series: {
-                // Gives each series an axis name that matches the Y-axis below.
-                0: {
-                    axis: 'Amount'
-                },
-                1: {
-                    axis: 'Amount'
-                }
-            },
-
-            axes: {
-                // Adds labels to each axis; they don't have to match the axis names.
-                y: {
-                    Amount: {
-                        label: 'Amount'
-                    },
-                    all: {
-                        range: {
-                            min: 0
-                        }
-                    }
-                }
             }
         };
 
