@@ -1,8 +1,10 @@
 <script>
 	var devices = [];
-	<?php foreach($devices as $device): ?>
-		devices.push(<?= json_decode($device['funcgetdevicesinlocationbydate'], false)->count ?>);
-	<?php endforeach; ?>
+	<?php if(!is_null($devices)): ?>
+        <?php foreach($devices as $device): ?>
+            devices.push(<?= $device['funcgetdevicesinlocationbydate'] ?>);
+        <?php endforeach; ?>
+    <?php endif; ?>
 </script>
 
 <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -17,18 +19,19 @@
         data.addColumn('datetime', "Date");
         data.addColumn('number', "Devices");
 
-        data.addRows([
-            [new Date(2014, 1, 1, 10), 1],
-            [new Date(2014, 1, 2, 11), 1],
-            [new Date(2014, 1, 3, 12), 10],
-            [new Date(2014, 1, 4, 13), 40],
-        ]);
+        if (devices.length != 0) {
+            for (var i = 0; i < devices.length; i++) {
+                data.addRow([new Date(devices[i].tracked_time), devices[i].count]);
+            }
+        } else {
+            data.addRow([new Date(1990, 1, 1), 0]);
+        }
 
         var options = {
             chart: {
                 title: 'Devices'
             },
-            width: 1500,
+            width: 900,
             height: 500,
 
             series: {
@@ -41,15 +44,21 @@
                 }
             },
 
-            axes :{
+            axes: {
                 // Adds labels to each axis; they don't have to match the axis names.
                 y: {
                     Amount: {
                         label: 'Amount'
+                    },
+                    all: {
+                        range: {
+                            min: 0
+                        }
                     }
                 }
             }
         };
+
         var chart = new google.charts.Line(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
