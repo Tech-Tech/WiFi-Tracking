@@ -80,7 +80,7 @@ class TrackedDevicesTable extends Table
      * @author Frank Schutte
      */
     public function findDevicesInLocationByDate(Query $query, array $options) {
-        $sql = sprintf('SELECT funcGetDevicesInLocationByDate(%d, %s, %s)', $options['location_id'], $options['begin_date'], $options['end_date']);
+        $sql = sprintf('SELECT funcGetDevicesInLocationByDate(%d, %s, %s, 0.25)', $options['location_id'], $options['begin_date'], $options['end_date']);
         $connection = ConnectionManager::get('default');
         $results = $connection->execute($sql)->fetchAll('assoc');
         return $results;

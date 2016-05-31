@@ -1,15 +1,21 @@
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<fieldset>
+    <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations]) ?>
+</fieldset>
+<?= $this->Form->button(__('Submit')) ?>
+<?= $this->Form->end() ?>
+
+<div id="chart_div" style="width: 90%; height: 500px;"></div>
+
+
 <script>
-	var devices = [];
-	<?php if(!is_null($devices)): ?>
+    var devices = [];
+    <?php if(!is_null($devices)): ?>
         <?php foreach($devices as $device): ?>
             devices.push(<?= $device['funcgetdevicesinlocationbydate'] ?>);
         <?php endforeach; ?>
     <?php endif; ?>
-</script>
 
-<script src="https://www.gstatic.com/charts/loader.js"></script>
-<div id="chart_div"></div>
-<script>
     google.charts.load('current', {'packages': ['line', 'corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
@@ -28,11 +34,26 @@
         }
 
         var options = {
-            chart: {
-                title: 'Devices'
+            title: 'Devices in location',
+//            width: 100%,
+//            height: 500,
+            vAxis: {
+                title: 'Amount of devices'
             },
-            width: 900,
-            height: 500,
+
+            hAxis: {
+                title: 'Date',
+                format: 'dd/MM HH:mm',
+                gridlines: {
+                    count: 4
+                }
+            },
+
+            animation: {
+                startup: true,
+                duration: 1000,
+                easing: 'out'
+            },
 
             series: {
                 // Gives each series an axis name that matches the Y-axis below.
@@ -59,7 +80,8 @@
             }
         };
 
-        var chart = new google.charts.Line(document.getElementById('chart_div'));
+        var chart = new google.visualization.SteppedAreaChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
+
 </script>

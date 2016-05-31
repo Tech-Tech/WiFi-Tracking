@@ -43,7 +43,8 @@ class AnalyzeController extends AppController
 //            $begin_date = null;
 //            $end_date = null;
 //            $devices = null;
-            $begin_date ='2016-05-29 10:00:00';
+
+            $begin_date ='2016-05-29 00:00:00';
             $end_date = '2016-05-31 14:00:00';
             $tracked_devices_table = TableRegistry::get('tracked_devices');
             $devices = $tracked_devices_table->find('DevicesInLocationByDate', [
@@ -52,6 +53,10 @@ class AnalyzeController extends AppController
                 'end_date' => "'" . $end_date . "'"
             ]);
         }
+
+        $locations_table = TableRegistry::get('locations');
+        $locations = $locations_table->find('list');
+        $this->set('locations', $locations);
         $this->set('devices', $devices);
         $this->set('begin_date', $begin_date);
         $this->set('end_date', $end_date);
