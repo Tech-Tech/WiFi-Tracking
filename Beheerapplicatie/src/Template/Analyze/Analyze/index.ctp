@@ -1,3 +1,12 @@
+<?= $this->Form->create() ?>
+<fieldset>
+	<legend><?= __('Select time period') ?></legend>
+		<?= $this->Form->input('begin_date', ['type' => 'datetime-local']) ?>
+		<?= $this->Form->input('end_date', ['type' => 'datetime-local']) ?>
+</fieldset>
+<?= $this->Form->button(__('Submit')) ?>
+<?= $this->Form->end() ?>
+
 <script>
 	var devices = [];
 	<?php if(!is_null($devices)): ?>
