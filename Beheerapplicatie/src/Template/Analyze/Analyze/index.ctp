@@ -1,6 +1,10 @@
-<?php foreach($devices as $device): ?>
-    <?= "<script> var devices[] {  " . $device . "}</script>" ?>
-<?php endforeach; ?>
+<script>
+	var devices = [];
+	<?php foreach($devices as $device): ?>
+		devices.push(<?= json_decode($device['funcgetdevicesinlocationbydate'], false)->count ?>);
+	<?php endforeach; ?>
+</script>
+
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="chart_div"></div>
 <script>
@@ -9,6 +13,7 @@
 
     function drawChart() {
         var data = new google.visualization.DataTable();
+
         data.addColumn('datetime', "Date");
         data.addColumn('number', "Devices");
 
