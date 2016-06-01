@@ -5,8 +5,8 @@
         <?php
             echo $this->Form->input('location_id', ['options' => $locations]);
             echo $this->Form->input('monitoring_device_id', ['options' => $monitoringDevices]);
-            echo $this->Form->input('begin_date');
-            echo $this->Form->input('end_date');
+            echo $this->Form->input('begin_date', ['label' => 'Begin date (UTC)']);
+            echo $this->Form->input('end_date', ['label' => 'End date (UTC)']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -42,9 +42,7 @@ class MonitoringDevicesController extends ManageController
      */
     public function view($id = null)
     {
-        $monitoringDevice = $this->MonitoringDevices->get($id, [
-            'contain' => ['MonitoringDeviceLocations' => ['Locations'], 'ReceivedRequests']
-        ]);
+        $monitoringDevice = $this->MonitoringDevices->get($id);
 
         $this->set('monitoringDevice', $monitoringDevice);
         $this->set('_serialize', ['monitoringDevice']);

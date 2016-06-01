@@ -56,16 +56,10 @@ class LocationsController extends ManageController
 	    ];
 
 	    $location = $this->Locations->get($id, [
-		    'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses'], 'MonitoringDeviceLocations' => ['MonitoringDevices' => ['ReceivedRequests']]]
-	    ]);
-
-	    $received_requests_table = TableRegistry::get('received_requests');
-	    $received_requests = $received_requests_table->find('RelatedReceivedRequests', [
-		    'id' => $id
+		    'contain' => ['Wings', 'Floors', 'Rooms', 'Suffixes', 'Buildings' => ['Campuses'], 'MonitoringDeviceLocations' => ['MonitoringDevices']]
 	    ]);
 
         $this->set('location', $location);
-	    $this->set('received_requests', $received_requests);
         $this->set('_serialize', ['location']);
     }
 

@@ -56,28 +56,4 @@
 	        <p><?= __('This device is not connected to a location') ?></p>
         <?php endif; ?>
     </div>
-    <div class="related">
-        <h4><?= __('Related Received Requests') ?></h4>
-        <?php if (!empty($monitoringDeviceLocation->monitoring_device->received_requests)): ?>
-            <table cellpadding="0" cellspacing="0">
-                <tr>
-	                <th><?= $this->Paginator->sort('monitoring_device_id') ?></th>
-	                <th><?= $this->Paginator->sort('tracked_mac_address') ?></th>
-	                <th><?= $this->Paginator->sort('request_timestamp') ?></th>
-	                <th><?= $this->Paginator->sort('signal_strength') ?></th>
-                </tr>
-                <?php foreach ($received_requests as $received_request): ?>
-                    <tr>
-	                    <?php $decoded_request = json_decode($received_request['funcgetreceivedrequests'], false) ?>
-	                    <td><?= $this->Html->link($decoded_request->name, ['controller' => 'MonitoringDevices', 'action' => 'view', $decoded_request->id]) ?></td>
-	                    <td><?= h($decoded_request->mac_address) ?></td>
-	                    <td><?= date('D d M Y H:i', strtotime($decoded_request->request_timestamp)) ?></td>
-	                    <td><?= $this->Number->format($decoded_request->signal_strength) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-        <?php else: ?>
-	        <p><?= __('There are no measured values') ?></p>
-        <?php endif; ?>
-    </div>
 </div>
