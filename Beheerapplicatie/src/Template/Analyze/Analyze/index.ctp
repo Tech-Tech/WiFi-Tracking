@@ -4,8 +4,8 @@
 <fieldset>
 	<legend><?= __('Select location and time period') ?></legend>
         <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations]) ?>
-		<?= $this->Form->input('begin_date', ['type' => 'datetime-local']) ?>
-		<?= $this->Form->input('end_date', ['type' => 'datetime-local']) ?>
+		<?= $this->Form->input('begin_date', ['type' => 'datetime-local',  'label' => 'Begin date (UTC)']) ?>
+		<?= $this->Form->input('end_date', ['type' => 'datetime-local', 'label' => 'End date (UTC)']) ?>
         <?= $this->Form->input('step', ['type' => 'number', 'label' => 'Minutes per step']) ?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>
