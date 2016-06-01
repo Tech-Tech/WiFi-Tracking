@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\TrackedDevice;
+use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -68,5 +69,21 @@ class TrackedDevicesTable extends Table
             ->allowEmpty('name');
 
         return $validator;
+    }
+
+    /**
+     * Method to search all tracked_devices from which probe requests are received
+     * in a specific location and between two specific dates.
+     *
+     * @param Query $query
+     * @param array $options
+     * @return mixed
+     * @author Frank Schutte
+     */
+    public function findDevicesInLocationByDate(Query $query, array $options) {
+        $sql = sprintf('SELECT funcGetDevicesInLocationByDate(%d, %s, %s, %f)', $options['location_id'], $options['begin_date'], $options['end_date'], $options['multiplier']);
+        $connection = ConnectionManager::get('default');
+        $results = $connection->execute($sql)->fetchAll('assoc');
+        return $results;
     }
 }

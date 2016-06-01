@@ -47,7 +47,6 @@ class RoomsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('room_number')
             ->requirePresence('room_number', 'create')
             ->notEmpty('room_number');
 

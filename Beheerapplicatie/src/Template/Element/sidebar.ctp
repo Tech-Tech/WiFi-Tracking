@@ -34,8 +34,8 @@
 			accs = document.getElementsByClassName("accordion");
 			for(var j = 0; j < accs.length; j++) {
 				if(accs[j] != this) {
+                    accs[j].nextElementSibling.classList.remove("show");
 					accs[j].classList.remove("active");
-					accs[j].nextElementSibling.classList.remove("show");
 				}
 			}
 			this.classList.toggle("active");
