@@ -6,6 +6,7 @@
         <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations]) ?>
 		<?= $this->Form->input('begin_date', ['type' => 'datetime-local']) ?>
 		<?= $this->Form->input('end_date', ['type' => 'datetime-local']) ?>
+        <?= $this->Form->input('step', ['type' => 'number', 'label' => 'Minutes per step']) ?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>
 <?= $this->Form->end() ?>
@@ -53,7 +54,7 @@
 
             animation: {
                 startup: true,
-                duration: 5000,
+                duration: 1500,
                 easing: 'out'
             }
         };

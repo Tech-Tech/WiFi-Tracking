@@ -32,16 +32,20 @@ class AnalyzeController extends AppController
     {
         if (isset($this->request->data['begin_date'])
             && isset($this->request->data['end_date'])
-            && isset($this->request->data['locations']))
+            && isset($this->request->data['locations'])
+            && isset($this->request->data['step']))
         {
             $begin_date = $this->request->data['begin_date'];
             $end_date = $this->request->data['end_date'];
             $location_id = $this->request->data['locations'];
+            $step = $this->request->data['step'];
+
             $tracked_devices_table = TableRegistry::get('tracked_devices');
             $devices = $tracked_devices_table->find('DevicesInLocationByDate', [
                 'location_id' => $location_id,
                 'begin_date' => "'" . $begin_date . "'",
-                'end_date' => "'" . $end_date . "'"
+                'end_date' => "'" . $end_date . "'",
+                'multiplier' => ($step/60)
             ]);
         }
 
