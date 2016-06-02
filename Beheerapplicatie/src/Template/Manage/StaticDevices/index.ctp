@@ -19,8 +19,8 @@
                     <td><?= $staticDevice->tracked_device->vendor ?></td>
                     <td><?= $staticDevice->tracked_device->name ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Edit'), ['controller' => 'TrackedDevices', 'action' => 'edit', $staticDevice->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $staticDevice->id], ['confirm' => __('Are you sure you want to delete # {0}?', $staticDevice->id)]) ?>
+                        <?= $this->Html->link(__('Edit'), ['controller' => 'TrackedDevices', 'action' => 'edit', $staticDevice->tracked_device->id]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $staticDevice->id], ['confirm' => __('Are you sure you want to delete # {0}?', $staticDevice->tracked_device->id)]) ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

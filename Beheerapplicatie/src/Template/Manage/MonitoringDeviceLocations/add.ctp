@@ -3,7 +3,7 @@
     <fieldset>
         <legend><?= __('Add Monitoring Device Location') ?></legend>
         <?php
-            echo $this->Form->input('location_id', ['options' => $locations]);
+            echo $this->Form->input('location', ['default' => $location->full_location_name, 'disabled' => 'disabled']);
             echo $this->Form->input('monitoring_device_id', ['options' => $monitoringDevices]);
             echo $this->Form->input('begin_date', ['label' => 'Begin date (UTC)']);
             echo $this->Form->input('end_date', ['label' => 'End date (UTC)']);

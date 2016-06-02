@@ -41,8 +41,10 @@ class TrackedDevicesTable extends Table
         $this->hasMany('StaticDevices', [
             'foreignKey' => 'tracked_device_id'
         ]);
-        $this->hasOne('DeviceTypes', [
-            'foreignKey' => 'id'
+        $this->belongsTo('DeviceTypes', [
+            'bindingKey' => 'id',
+            'foreignKey' => 'device_type_id',
+            'joinType' => 'LEFT OUTER'
         ]);
     }
 
@@ -59,7 +61,7 @@ class TrackedDevicesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->notEmpty('device_type');
+            ->allowEmpty('device_type');
 
         $validator
             ->requirePresence('vendor', 'create')
