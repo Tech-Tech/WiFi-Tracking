@@ -39,13 +39,15 @@ class AnalyzeController extends AppController
             $end_date = $this->request->data['end_date'];
             $location_id = $this->request->data['locations'];
             $step = $this->request->data['step'];
+            $min_signal_strength = $this->request->data['min_signal_strength'];
 
             $tracked_devices_table = TableRegistry::get('tracked_devices');
             $devices = $tracked_devices_table->find('DevicesInLocationByDate', [
                 'location_id' => $location_id,
                 'begin_date' => "'" . $begin_date . "'",
                 'end_date' => "'" . $end_date . "'",
-                'multiplier' => ($step/60)
+                'multiplier' => ($step/60),
+                'min_signal_strength' => $min_signal_strength
             ]);
         }
 
@@ -53,6 +55,7 @@ class AnalyzeController extends AppController
             $begin_date = null;
             $end_date = null;
             $devices = null;
+            $min_signal_strength = null;
         }
 
         $locations_table = TableRegistry::get('locations');
@@ -61,6 +64,7 @@ class AnalyzeController extends AppController
         $this->set('devices', $devices);
         $this->set('begin_date', $begin_date);
         $this->set('end_date', $end_date);
+        $this->set('min_signal_strength', $min_signal_strength);
         $this->set('_serialize', ['devices']);
     }
 }

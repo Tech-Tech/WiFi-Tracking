@@ -3,10 +3,11 @@
 <?= $this->Form->create() ?>
 <fieldset>
 	<legend><?= __('Select location and time period') ?></legend>
-        <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations]) ?>
+        <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations, 'label' => 'Location']) ?>
 		<?= $this->Form->input('begin_date', ['type' => 'datetime-local',  'label' => 'Begin date (UTC)']) ?>
 		<?= $this->Form->input('end_date', ['type' => 'datetime-local', 'label' => 'End date (UTC)']) ?>
         <?= $this->Form->input('step', ['type' => 'number', 'label' => 'Minutes per step']) ?>
+        <?= $this->Form->input('min_signal_strength', ['type' => 'number', 'label' => 'Minimum signal strength']) ?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>
 <?= $this->Form->end() ?>
