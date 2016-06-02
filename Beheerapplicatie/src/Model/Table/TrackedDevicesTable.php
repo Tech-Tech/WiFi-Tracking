@@ -72,7 +72,8 @@ class TrackedDevicesTable extends Table
     }
 
     /**
-     * Method to search all received request, a stored procedure is used.
+     * Method to search all tracked_devices from which probe requests are received
+     * in a specific location and between two specific dates.
      *
      * @param Query $query
      * @param array $options
