@@ -29,7 +29,7 @@ class LocationsTable extends Table
         parent::initialize($config);
 
         $this->table('locations');
-        $this->displayField('id');
+        $this->displayField('full_location_name');
         $this->primaryKey('id');
 
         $this->belongsTo('Wings', [
