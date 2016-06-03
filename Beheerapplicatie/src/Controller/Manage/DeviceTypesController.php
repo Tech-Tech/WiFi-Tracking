@@ -80,9 +80,7 @@ class DeviceTypesController extends ManageController
      */
     public function edit($id = null)
     {
-        $deviceType = $this->DeviceTypes->get($id, [
-            'contain' => []
-        ]);
+        $deviceType = $this->DeviceTypes->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $deviceType = $this->DeviceTypes->patchEntity($deviceType, $this->request->data);
             if ($this->DeviceTypes->save($deviceType)) {
@@ -92,8 +90,7 @@ class DeviceTypesController extends ManageController
                 $this->Flash->error(__('The device type could not be saved. Please, try again.'));
             }
         }
-        $devices = $this->DeviceTypes->Devices->find('list', ['limit' => 200]);
-        $this->set(compact('deviceType', 'devices'));
+        $this->set(compact('deviceType'));
         $this->set('_serialize', ['deviceType']);
     }
 

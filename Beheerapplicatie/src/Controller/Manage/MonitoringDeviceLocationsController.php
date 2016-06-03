@@ -72,11 +72,9 @@ class MonitoringDeviceLocationsController extends ManageController
                 $this->Flash->error(__('The monitoring device location could not be saved. Please, try again.'));
             }
         }
-        $locations = $this->MonitoringDeviceLocations->Locations->find('list', [
-            'conditions' => ['id' => $id]
-        ]);
+        $location = $this->MonitoringDeviceLocations->Locations->get($id);
         $monitoringDevices = $this->MonitoringDeviceLocations->MonitoringDevices->find('list', ['limit' => 200]);
-        $this->set(compact('monitoringDeviceLocation', 'locations', 'monitoringDevices'));
+        $this->set(compact('monitoringDeviceLocation', 'location', 'monitoringDevices'));
         $this->set('_serialize', ['monitoringDeviceLocation']);
     }
 

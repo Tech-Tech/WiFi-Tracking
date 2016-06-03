@@ -29,9 +29,9 @@ class DeviceTypesTable extends Table
 	    $this->displayField('device_type');
         $this->primaryKey('id');
 
-        $this->belongsToMany('TrackedDevices', [
+        $this->hasMany('TrackedDevices', [
             'foreignKey' => 'device_type_id',
-	        'joinType' => 'INNER'
+	        'joinType' => 'LEFT OUTER'
         ]);
     }
 

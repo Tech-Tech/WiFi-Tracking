@@ -86,23 +86,21 @@ class TrackedDevicesController extends ManageController
      */
     public function edit($id = null)
     {
-        $trackedDevice = $this->TrackedDevices->get($id, [
-            'contain' => []
-        ]);
+        $trackedDevice = $this->TrackedDevices->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $trackedDevice = $this->TrackedDevices->patchEntity($trackedDevice, $this->request->data);
+	        $trackedDevice = $this->TrackedDevices->patchEntity($trackedDevice, $this->request->data);
             if ($this->TrackedDevices->save($trackedDevice)) {
                 $this->Flash->success(__('The tracked device has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'StaticDevices', 'action' => 'index']);
             } else {
                 $this->Flash->error(__('The tracked device could not be saved. Please, try again.'));
             }
         }
 	    $device_types_table = TableRegistry::get('device_types');
-	    $device_types = $device_types_table->find('all')->all();
+	    $device_types = $device_types_table->find('list')->all();
 	    $this->set('device_types', $device_types);
         $this->set(compact('trackedDevice'));
-        $this->set('_serialize', ['trackedDevice']);
+        $this->set('_serialize', ['trackedDevice', 'device_types']);
     }
 
     /**
