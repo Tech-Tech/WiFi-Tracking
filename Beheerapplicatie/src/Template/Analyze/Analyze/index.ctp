@@ -3,10 +3,11 @@
 <?= $this->Form->create() ?>
 <fieldset>
 	<legend><?= __('Select location and time period') ?></legend>
-        <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations]) ?>
-		<?= $this->Form->input('begin_date', ['type' => 'datetime-local',  'label' => 'Begin date (UTC)']) ?>
-		<?= $this->Form->input('end_date', ['type' => 'datetime-local', 'label' => 'End date (UTC)']) ?>
-        <?= $this->Form->input('step', ['type' => 'number', 'label' => 'Minutes per step']) ?>
+        <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations, 'required' => true]) ?>
+		<?= $this->Form->input('begin_date', ['type' => 'datetime-local',  'label' => 'Begin date (UTC)', 'required' => true]) ?>
+		<?= $this->Form->input('end_date', ['type' => 'datetime-local', 'label' => 'End date (UTC)', 'required' => true]) ?>
+        <?= $this->Form->input('step', ['type' => 'number', 'label' => 'Minutes per step', 'required' => true]) ?>
+        <?= $this->Form->input('include_static_devices', ['type' => 'checkbox', 'label' => 'Include static devices']) ?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>
 <?= $this->Form->end() ?>
