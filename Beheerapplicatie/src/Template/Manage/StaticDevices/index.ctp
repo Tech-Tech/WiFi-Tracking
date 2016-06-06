@@ -1,5 +1,10 @@
 <div class="staticDevices index large-9 medium-8 columns content">
 	<h3><?= __('Static Devices') ?></h3>
+    <div class="information_div">
+        <p>The table below shows all static devices. Static devices are devices which can be easily excluded when
+        viewing an analytic diagram. Static devices can be network infrastructure devices, smart tv's or any other
+        device which is unlike to move.</p>
+    </div>
 	<?= $this->Html->link(__('Add Static Device'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>

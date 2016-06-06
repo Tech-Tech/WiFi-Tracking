@@ -1,5 +1,8 @@
 <div class="locations view large-9 medium-8 columns content">
     <h3><?= h($location->full_location_name) ?></h3>
+	<div class="information_div">
+		<p>Below all details about <?= $location->full_location_name ?> are listed.</p>
+	</div>
     <table class="vertical-table">
 	    <tr>
 		    <th><?= __('Campus') ?></th>
@@ -31,6 +34,10 @@
         </tr>
     </table>
     <div class="related">
+	    <div class="information_div">
+		    <p>Below is a list of all monitoring devices that have been , are currently, or will be connected to
+			    <?= $location->full_location_name ?></p>
+	    </div>
         <h4><?= __('Related Monitoring Devices') ?></h4>
 	    <?= $this->Html->link(__('Add monitoring device'), ['controller' => 'MonitoringDeviceLocations', 'action' => 'add', $location->id]) ?>
         <?php if (!empty($location->monitoring_device_locations)): ?>

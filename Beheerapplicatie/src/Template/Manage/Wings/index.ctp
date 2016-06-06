@@ -1,5 +1,8 @@
 <div class="wings index large-9 medium-8 columns content">
     <h3><?= __('Wings') ?></h3>
+    <div class="information_div">
+        <p>The table below shows all registered wings.</p>
+    </div>
 	<?= $this->Html->link(__('Add wing'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>

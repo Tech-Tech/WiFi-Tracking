@@ -3,17 +3,24 @@
 <?= $this->Form->create() ?>
 <fieldset>
 	<legend><?= __('Select location and time period') ?></legend>
-        <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations, 'label' => 'Location', 'required' => true]) ?>
-		<?= $this->Form->input('begin_date', ['type' => 'datetime-local',  'label' => 'Begin date (UTC)', 'required' => true]) ?>
-		<?= $this->Form->input('end_date', ['type' => 'datetime-local', 'label' => 'End date (UTC)', 'required' => true]) ?>
-        <?= $this->Form->input('step', ['type' => 'number', 'label' => 'Minutes per step', 'required' => true]) ?>
-        <?= $this->Form->input('min_signal_strength', ['type' => 'number', 'label' => 'Minimum signal strength', 'required' => true]) ?>
-        <?= $this->Form->input('min_probe_requests', ['type' => 'number', 'label' => 'Minimum amount of probe request within step', 'required' => true]) ?>
-        <?= $this->Form->input('include_static_devices', ['type' => 'checkbox', 'label' => 'Include static devices']) ?>
+	<div class="information_div">
+		<p>Please fill in your desired values.</p>
+	</div>
+    <?= $this->Form->input('locations', ['type' => 'select', 'options' => $locations, 'label' => 'Location', 'required' => true]) ?>
+	<?= $this->Form->input('begin_date', ['type' => 'datetime-local',  'label' => 'Begin date (UTC)', 'required' => true]) ?>
+	<?= $this->Form->input('end_date', ['type' => 'datetime-local', 'label' => 'End date (UTC)', 'required' => true]) ?>
+    <?= $this->Form->input('step', ['type' => 'number', 'label' => 'Minutes per step', 'required' => true]) ?>
+    <?= $this->Form->input('min_signal_strength', ['type' => 'number', 'label' => 'Minimum signal strength', 'required' => true]) ?>
+    <?= $this->Form->input('min_probe_requests', ['type' => 'number', 'label' => 'Minimum amount of probe request within step', 'required' => true]) ?>
+    <?= $this->Form->input('include_static_devices', ['type' => 'checkbox', 'label' => 'Include static devices']) ?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>
 <?= $this->Form->end() ?>
 
+<div class="information_div">
+	<p>The diagram below shows the amount of unique devices measured between a specific begin and end date
+		within the given location.</p>
+</div>
 <div id="chart_div" style="width: 90%; height: 500px;"></div>
 
 <script>
@@ -42,9 +49,10 @@
         }
 
         var options = {
-            title: 'Devices in location',
+            title: 'Devices in location ' + '',
             vAxis: {
-                title: 'Amount of devices'
+                title: 'Amount of devices',
+	            format: '0'
             },
 
             hAxis: {

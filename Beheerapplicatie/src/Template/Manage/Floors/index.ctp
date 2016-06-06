@@ -1,5 +1,8 @@
 <div class="floors index large-9 medium-8 columns content">
     <h3><?= __('Floors') ?></h3>
+    <div class="information_div">
+        <p>The table below shows all registered floors.</p>
+    </div>
     <?= $this->Html->link(__('Add floor'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
