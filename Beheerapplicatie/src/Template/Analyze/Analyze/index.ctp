@@ -49,7 +49,7 @@
         }
 
         var options = {
-            title: 'Devices in location ' + '',
+            title: 'Devices in location',
             vAxis: {
                 title: 'Amount of devices',
 	            format: '0'
