@@ -1,4 +1,7 @@
 <div class="floors form large-9 medium-8 columns content">
+    <div class="information_div">
+        <p>In the fields below you can create a floor.</p>
+    </div>
     <?= $this->Form->create($floor) ?>
     <fieldset>
         <legend><?= __('Add Floor') ?></legend>

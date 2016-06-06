@@ -1,5 +1,8 @@
 <div class="suffixes index large-9 medium-8 columns content">
     <h3><?= __('Suffixes') ?></h3>
+    <div class="information_div">
+        <p>The table below shows all registered suffixes.</p>
+    </div>
     <?= $this->Html->link(__('Add suffix'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>

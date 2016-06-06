@@ -1,5 +1,9 @@
 <div class="trackedDevices index large-9 medium-8 columns content">
     <h3><?= __('Tracked Devices') ?></h3>
+    <div class="information_div">
+        <p>The table below shows all tracked devices. Tracked devices are devices which are measured by a
+        Raspberry Pi and added to this table.</p>
+    </div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

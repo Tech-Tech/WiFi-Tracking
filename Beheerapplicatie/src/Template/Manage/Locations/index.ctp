@@ -1,5 +1,9 @@
 <div class="locations index large-9 medium-8 columns content">
     <h3><?= __('Locations') ?></h3>
+	<div class="information_div">
+		<p>The table below shows all registered locations. Every location can be viewed in detail, edited or deleted.
+		Also new locations can be added.</p>
+	</div>
 	<?= $this->Html->link(__('Add location'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>

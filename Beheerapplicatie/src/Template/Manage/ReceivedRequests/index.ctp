@@ -1,5 +1,8 @@
 <div class="receivedRequests index large-9 medium-8 columns content">
     <h3><?= __('Received Requests') ?></h3>
+    <div class="information_div">
+        <p>The table below shows all measured values.</p>
+    </div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

@@ -1,4 +1,7 @@
 <div class="buildings form large-9 medium-8 columns content">
+    <div class="information_div">
+        <p>In the fields below you can create a building. A building is always in a campus.</p>
+    </div>
     <?= $this->Form->create($building) ?>
     <fieldset>
         <legend><?= __('Add Building') ?></legend>
