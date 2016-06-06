@@ -1,4 +1,7 @@
 <div class="monitoringDevices form large-9 medium-8 columns content">
+    <div class="information_div">
+        <p>In the fields below you can create a monitoring device.</p>
+    </div>
     <?= $this->Form->create($monitoringDevice) ?>
     <fieldset>
         <legend><?= __('Add Monitoring Device') ?></legend>
