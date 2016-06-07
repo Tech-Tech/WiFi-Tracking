@@ -20,7 +20,7 @@ class GraphController extends AnalyzeController
     }
 
     /**
-     * View devices graph method
+     * Method to fetch data to create a graph to display all devices in a location.
      *
      * @return \Cake\Network\Response|null
      * @author Albert Veldman
@@ -46,8 +46,8 @@ class GraphController extends AnalyzeController
             $tracked_devices_table = TableRegistry::get('tracked_devices');
             $devices = $tracked_devices_table->find('DevicesInLocationByDate', [
                 'location_id' => $location_id,
-                'begin_date' => "'" . $begin_date . "'",
-                'end_date' => "'" . $end_date . "'",
+                'begin_date' => '\'' . $begin_date . '\'',
+                'end_date' => '\'' . $end_date . '\'',
                 'multiplier' => ($step/60),
                 'min_signal_strength' => $min_signal_strength,
                 'min_probe_requests' => $min_probe_requests,
@@ -74,9 +74,14 @@ class GraphController extends AnalyzeController
         $this->set('min_signal_strength', $min_signal_strength);
         $this->set('min_probe_requests', $min_probe_requests);
         $this->set('include_static_devices', $include_static_devices);
-        $this->set('_serialize', ['devices']);
     }
 
+    /**
+     * Method to fetch data to create a graph to display vendors.
+     *
+     * @return \Cake\Network\Response|null
+     * @author Albert Veldman
+     */
     public function vendors(){
         $tracked_devices_table = TableRegistry::get('tracked_devices');
         if (isset($this->request->data['vendors'])

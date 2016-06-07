@@ -2,17 +2,26 @@
 <?= $this->Form->create() ?>
 <fieldset>
     <legend><?= __('Select time period and vendors') ?></legend>
-    <?= $this->Form->input('begin_date', ['type' => 'datetime-local',  'label' => 'Begin date (UTC)']) ?>
-    <?= $this->Form->input('end_date', ['type' => 'datetime-local', 'label' => 'End date (UTC)']) ?>
-    <?= $this->Form->input('min_signal_strength', ['type' => 'number', 'label' => 'Minimum signal strength']) ?>
-
-    <select name="vendors[]" multiple="multiple" id="vendors">
-        <?php foreach($vendors as $vendor): ?>
-            <option value="<?= $vendor['vendor']?>"><?= $vendor['vendor']?></option>
-        <?php endforeach; ?>
-    </select>
+	<div class="information_div">
+		<p>Please fill in your criteria below (* means required).</p>
+	</div>
+    <?= $this->Form->input('begin_date', ['type' => 'datetime-local',  'label' => 'Begin date (UTC)', 'required' => true]) ?>
+    <?= $this->Form->input('end_date', ['type' => 'datetime-local', 'label' => 'End date (UTC)', 'required' => true]) ?>
+    <?= $this->Form->input('min_signal_strength', ['type' => 'number', 'label' => 'Minimum signal strength', 'required' => true]) ?>
+	<div class="input text required">
+	<label for="vendors">Vendors</label>
+	    <select required name="vendors[]" multiple="multiple" id="vendors">
+	        <?php foreach($vendors as $vendor): ?>
+	            <option value="<?= $vendor['vendor']?>"><?= $vendor['vendor']?></option>
+	        <?php endforeach; ?>
+	    </select>
+	</div>
 <?= $this->Form->button(__('Submit')) ?>
 <?= $this->Form->end() ?>
+
+<div class="information_div">
+	<p>The graph below displays all data that matches your criteria.</p>
+</div>
 
 <div id="dashboard">
     <div id="chart_div" style="width: 90%; height: 700px"></div>

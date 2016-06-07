@@ -1,5 +1,11 @@
 <div class="container clearfix">
     <?= $this->fetch('content') ?>
-    <?= $this->Html->link("Devices in location graph", ['controller' => 'Graph','action'=> 'Devices'], ['class' => 'button']); ?>
-    <?= $this->Html->link("Vendor graphs", ['controller' => 'Graph','action'=> 'Vendors'], ['class' => 'button']); ?>
+    <div class="description_div">
+        <p>Redirects you to the chart where you can see how many devices were at a specific location.</p>
+        <?= $this->Html->link("Devices in location graph", ['controller' => 'Graph','action'=> 'Devices'], ['class' => 'button']); ?>
+    </div>
+    <div class="description_div">
+        <p>Redirects you to the chart where you can see how many probe requests per vendor.</p>
+        <?= $this->Html->link("Vendor graph", ['controller' => 'Graph','action'=> 'Vendors'], ['class' => 'button']); ?>
+    </div>
 </div>
