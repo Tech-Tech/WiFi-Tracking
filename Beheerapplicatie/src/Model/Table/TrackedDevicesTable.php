@@ -96,4 +96,43 @@ class TrackedDevicesTable extends Table
         $results = $connection->execute($sql)->fetchAll('assoc');
         return $results;
     }
+
+    /**
+     * Method to search average probe requests send by devices per vendor within a given timespan.
+     *
+     * @param Query $query
+     * @param array $options
+     * @author Albert Veldman
+     */
+    public function findProbeRequestsByVendor(Query $query, array $options) {
+        $vendors = 'ARRAY[';
+        foreach ($options['vendors'] as $vendor) {
+            $vendors .= '\'' . $vendor . '\',';
+        }
+        $vendors = substr($vendors, 0, -1);
+        $vendors .= ']';
+
+        $sql = sprintf('SELECT funcGetProbeRequestsByVendor(%s, %s, %s, %d)',
+            $vendors,
+            $options['begin_date'],
+            $options['end_date'],
+            $options['min_signal_strength']);
+
+        $connection = ConnectionManager::get('default');
+        $results = $connection->execute($sql)->fetchAll('assoc');
+        return $results;
+    }
+
+    /**
+     * Method to search distinct vendors in tracked_devices.
+     *
+     * @param Query $query
+     * @author Albert Veldman
+     */
+    public function findAllVendors(Query $query) {
+        $sql = 'SELECT DISTINCT vendor FROM tracked_devices WHERE vendor != \'Unknown\' ORDER BY vendor ASC';
+        $connection = ConnectionManager::get('default');
+        $results = $connection->execute($sql)->fetchAll('assoc');
+        return $results;
+    }
 }
