@@ -69,11 +69,6 @@ class GraphController extends AnalyzeController
         $locations = $locations_table->find('list');
         $this->set('locations', $locations);
         $this->set('devices', $devices);
-        $this->set('begin_date', $begin_date);
-        $this->set('end_date', $end_date);
-        $this->set('min_signal_strength', $min_signal_strength);
-        $this->set('min_probe_requests', $min_probe_requests);
-        $this->set('include_static_devices', $include_static_devices);
     }
 
     /**
@@ -112,8 +107,5 @@ class GraphController extends AnalyzeController
 
         $this->set('vendors', $vendors);
         $this->set('vendor_requests', $vendor_requests);
-        $this->set('begin_date', $begin_date);
-        $this->set('end_date', $end_date);
-        $this->set('min_signal_strength', $min_signal_strength);
     }
 }
