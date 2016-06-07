@@ -38,12 +38,15 @@
 
         if (vendor_requests.length != 0) {
             for (var i = 0; i < vendor_requests.length; i++) {
-                data.addRow([vendor_requests[i].vendor,
-                            (vendor_requests[i].total_received_requests / vendor_requests[i].total_devices),
-                            vendor_requests[i].vendor + "\nAverage probe requests: " +
-                            Math.round((vendor_requests[i].total_received_requests / vendor_requests[i].total_devices))  + "\nTotal devices: " +
-                            vendor_requests[i].total_devices + "\nTotal requests: " +
-                            vendor_requests[i].total_received_requests]);
+	            var average = Math.round(vendor_requests[i].total_received_requests / vendor_requests[i].total_devices);
+	            if (average > 0) {
+	                data.addRow([vendor_requests[i].vendor,
+			            (vendor_requests[i].total_received_requests / vendor_requests[i].total_devices),
+			            vendor_requests[i].vendor + "\nAverage probe requests: " +
+			            average + "\nTotal devices: " +
+			            vendor_requests[i].total_devices + "\nTotal requests: " +
+			            vendor_requests[i].total_received_requests]);
+                }
             }
         } else {
             data.addRow('0', 0);
@@ -52,7 +55,10 @@
         var options = {
             title: 'Average probe requests per device per vendor',
             vAxis: {
-                title: 'Vendor'
+                title: 'Vendor',
+	            textStyle: {
+		            fontSize: 10
+	            }
             },
 
             hAxis: {
