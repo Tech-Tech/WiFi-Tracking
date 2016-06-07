@@ -107,18 +107,16 @@ class TrackedDevicesTable extends Table
     public function findProbeRequestsByVendor(Query $query, array $options) {
         $vendors = 'ARRAY[';
         foreach ($options['vendors'] as $vendor) {
-            $vendor = addslashes($vendor);
-            $vendors .= "'" . $vendor . "',";
+            $vendors .= '\'' . $vendor . '\',';
         }
         $vendors = substr($vendors, 0, -1);
-        $vendors .= "]'";
+        $vendors .= ']';
 
         $sql = sprintf('SELECT funcGetProbeRequestsByVendor(%s, %s, %s, %d)',
             $vendors,
             $options['begin_date'],
             $options['end_date'],
             $options['min_signal_strength']);
-        debug($sql);
 
         $connection = ConnectionManager::get('default');
         $results = $connection->execute($sql)->fetchAll('assoc');
