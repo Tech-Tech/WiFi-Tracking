@@ -1,5 +1,8 @@
 <div class="campuses index large-9 medium-8 columns content">
     <h3><?= __('Campuses') ?></h3>
+    <div class="information_div">
+        <p>The table below shows all registered campuses.</p>
+    </div>
     <?= $this->Html->link(__('Add campus'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>

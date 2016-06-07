@@ -1,5 +1,8 @@
 <div class="monitoringDevices index large-9 medium-8 columns content">
     <h3><?= __('Monitoring Devices') ?></h3>
+    <div class="information_div">
+        <p>The table below shows all monitoring devices.</p>
+    </div>
     <?= $this->Html->link(__('Add monitoring device'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -15,7 +18,6 @@
                 <td><?= h($monitoringDevice->name) ?></td>
                 <td><?= h($monitoringDevice->mac_address) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $monitoringDevice->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $monitoringDevice->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $monitoringDevice->id], ['confirm' => __('Are you sure you want to delete # {0}?', $monitoringDevice->id)]) ?>
                 </td>

@@ -1,5 +1,8 @@
 <div class="deviceTypes index large-9 medium-8 columns content">
     <h3><?= __('Device Types') ?></h3>
+    <div class="information_div">
+        <p>The table below shows all device types.</p>
+    </div>
 	<?= $this->Html->link(__('Add Device Type'), ['action' => 'add']) ?>
     <table cellpadding="0" cellspacing="0">
         <thead>
