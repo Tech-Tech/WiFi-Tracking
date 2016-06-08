@@ -49,7 +49,8 @@
             for (var i = 0; i < vendor_requests.length; i++) {
 	            var average = vendor_requests[i].total_received_requests / vendor_requests[i].total_devices;
 	            if (average > 0) {
-	                data.addRow([vendor_requests[i].vendor,
+	                data.addRow([
+		                vendor_requests[i].vendor,
 			            average,
 			            vendor_requests[i].vendor + "\nAverage probe requests: " +
 			            Math.round(average) + "\nTotal devices: " +

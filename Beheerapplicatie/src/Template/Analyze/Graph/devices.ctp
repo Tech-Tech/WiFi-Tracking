@@ -38,7 +38,9 @@
         data.addColumn('number', "Devices");
         if (devices.length != 0) {
             for (var i = 0; i < devices.length; i++) {
-                data.addRow([new Date(devices[i].tracked_time), devices[i].count]);
+                data.addRow([
+                    new Date(devices[i].tracked_time),
+                    devices[i].count]);
             }
         } else {
             data.addRow([new Date(1990, 1, 1), 0]);

@@ -37,7 +37,9 @@
 		data.addColumn('number', "Persons");
 		if (persons.length != 0) {
 			for (var i = 0; i < persons.length; i++) {
-				data.addRow([new Date(persons[i].tracked_time), persons[i].count]);
+				data.addRow([
+					new Date(persons[i].tracked_time),
+					Math.round(persons[i].count)]);
 			}
 		} else {
 			data.addRow([new Date(1990, 1, 1), 0]);
