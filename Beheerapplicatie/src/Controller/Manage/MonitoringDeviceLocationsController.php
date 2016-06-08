@@ -63,7 +63,6 @@ class MonitoringDeviceLocationsController extends ManageController
     {
         $monitoringDeviceLocation = $this->MonitoringDeviceLocations->newEntity();
         if ($this->request->is('post')) {
-	        debug($this->request->data);
             $monitoringDeviceLocation = $this->MonitoringDeviceLocations->patchEntity($monitoringDeviceLocation, $this->request->data);
             if ($this->MonitoringDeviceLocations->save($monitoringDeviceLocation)) {
                 $this->Flash->success(__('The monitoring device location has been saved.'));
