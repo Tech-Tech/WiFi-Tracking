@@ -47,12 +47,12 @@
 
         if (vendor_requests.length != 0) {
             for (var i = 0; i < vendor_requests.length; i++) {
-	            var average = Math.round(vendor_requests[i].total_received_requests / vendor_requests[i].total_devices);
+	            var average = vendor_requests[i].total_received_requests / vendor_requests[i].total_devices;
 	            if (average > 0) {
 	                data.addRow([vendor_requests[i].vendor,
-			            (vendor_requests[i].total_received_requests / vendor_requests[i].total_devices),
+			            average,
 			            vendor_requests[i].vendor + "\nAverage probe requests: " +
-			            average + "\nTotal devices: " +
+			            Math.round(average) + "\nTotal devices: " +
 			            vendor_requests[i].total_devices + "\nTotal requests: " +
 			            vendor_requests[i].total_received_requests]);
                 }

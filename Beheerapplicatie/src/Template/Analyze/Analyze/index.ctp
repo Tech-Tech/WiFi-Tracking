@@ -8,4 +8,8 @@
         <p>Redirects you to the chart where you can see how many probe requests per vendor.</p>
         <?= $this->Html->link("Vendor graph", ['controller' => 'Graph','action'=> 'Vendors'], ['class' => 'button']); ?>
     </div>
+	<div class="description_div">
+		<p>Redirects you to the chart where you can see how many probe requests per vendor.</p>
+		<?= $this->Html->link("Persons in location graph", ['controller' => 'Graph','action'=> 'Persons'], ['class' => 'button']); ?>
+	</div>
 </div>
