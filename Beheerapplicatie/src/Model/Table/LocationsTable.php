@@ -1,7 +1,9 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Datasource\ConnectionManager;
 use Cake\ORM\RulesChecker;
+use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -89,5 +91,27 @@ class LocationsTable extends Table
         $rules->add($rules->existsIn(['suffix_id'], 'Suffixes'));
         $rules->add($rules->existsIn(['building_id'], 'Buildings'));
         return $rules;
+    }
+
+    /**
+     * Find all persons in a specific location in a specific time.
+     *
+     * @param Query $query
+     * @param array $options
+     * @return mixed
+     * @author Frank Schutte
+     */
+    public function findPersonsInLocation(Query $query, array $options) {
+        $sql = sprintf('SELECT funcGetPersonsInLocationByDate(%d, %s, %s, %f, %d, %d)',
+            $options['location_id'],
+            $options['begin_date'],
+            $options['end_date'],
+            $options['multiplier'],
+            $options['min_signal_strength'],
+            $options['min_probe_requests']
+        );
+        $connection = ConnectionManager::get('default');
+        $results = $connection->execute($sql)->fetchAll('assoc');
+        return $results;
     }
 }

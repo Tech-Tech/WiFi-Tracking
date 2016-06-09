@@ -10,15 +10,19 @@
     <?= $this->Form->input('begin_date', ['type' => 'datetime-local',  'label' => 'Begin date (UTC)', 'required' => true]) ?>
     <?= $this->Form->input('end_date', ['type' => 'datetime-local', 'label' => 'End date (UTC)', 'required' => true]) ?>
     <?= $this->Form->input('step', ['type' => 'number', 'label' => 'Minutes per step', 'required' => true]) ?>
-    <?= $this->Form->input('min_signal_strength', ['type' => 'number', 'label' => 'Minimum signal strength', 'required' => true]) ?>
-    <?= $this->Form->input('min_probe_requests', ['type' => 'number', 'label' => 'Minimum amount of probe request within step', 'required' => true]) ?>
+    <?= $this->Form->input('min_signal_strength', ['type' => 'number', 'label' => 'Minimum signal strength (Recommended: -55)', 'required' => true]) ?>
+    <?= $this->Form->input('min_probe_requests', ['type' => 'number', 'label' => 'Minimum amount of probe request within step (Recommended: 4 requests in 30 minutes)', 'required' => true]) ?>
     <?= $this->Form->input('include_static_devices', ['type' => 'checkbox', 'label' => 'Include static devices']) ?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>
 <?= $this->Form->end() ?>
 
 <div class="information_div">
-	<p>The graph below displays all data that matches your criteria.</p>
+	<p>The graph below counts all devices that match your criteria.
+    Each data point displays the data received within the last step, within the given location.
+    Only requests with a stronger signal strength than the minimal signal strength will be used in the counting process.
+    A correct minimal signal strength can make sure that only devices within the location are counted.
+    Only devices that send the minimal amount of probe requests within a step will be counted, this amount is checked in every step.</p>
 </div>
 
 <div id="chart_div" style="width: 90%; height: 500px;"></div>
@@ -38,7 +42,9 @@
         data.addColumn('number', "Devices");
         if (devices.length != 0) {
             for (var i = 0; i < devices.length; i++) {
-                data.addRow([new Date(devices[i].tracked_time), devices[i].count]);
+                data.addRow([
+                    new Date(devices[i].tracked_time),
+                    devices[i].count]);
             }
         } else {
             data.addRow([new Date(1990, 1, 1), 0]);

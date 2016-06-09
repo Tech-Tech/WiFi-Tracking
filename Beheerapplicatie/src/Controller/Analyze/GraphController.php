@@ -108,4 +108,45 @@ class GraphController extends AnalyzeController
         $this->set('vendors', $vendors);
         $this->set('vendor_requests', $vendor_requests);
     }
+
+	/**
+	 * Method to fetch data to create a graph to display amount of persons in a location.
+	 *
+	 * @return \Cake\Network\Response|null
+	 * @author Frank Schutte
+	 */
+	public function persons() {
+		$locations_table = TableRegistry::get('locations');
+		if(isset($this->request->data['begin_date'])
+			&& isset($this->request->data['end_date'])
+			&& isset($this->request->data['locations'])
+			&& isset($this->request->data['step'])
+			&& isset($this->request->data['min_signal_strength'])
+			&& isset($this->request->data['min_probe_requests'])) {
+
+			$location_id = $this->request->data['locations'];
+			$begin_date = $this->request->data['begin_date'];
+			$end_date = $this->request->data['end_date'];
+			$step = $this->request->data['step'];
+			$min_signal_strength = $this->request->data['min_signal_strength'];
+			$min_probe_requests = $this->request->data['min_probe_requests'];
+
+			$persons = $locations_table->find('personsInLocation', [
+				'location_id' => $location_id,
+				'begin_date' => '\'' . $begin_date . '\'',
+				'end_date' => '\'' . $end_date . '\'',
+				'multiplier' => ($step / 60),
+				'min_signal_strength' => $min_signal_strength,
+				'min_probe_requests' => $min_probe_requests
+			]);
+		}
+		else {
+			$persons = null;
+		}
+
+		$locations_table = TableRegistry::get('locations');
+		$locations = $locations_table->find('list');
+		$this->set('locations', $locations);
+		$this->set('persons', $persons);
+	}
 }

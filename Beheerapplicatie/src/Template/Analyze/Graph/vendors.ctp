@@ -7,7 +7,7 @@
 	</div>
     <?= $this->Form->input('begin_date', ['type' => 'datetime-local',  'label' => 'Begin date (UTC)', 'required' => true]) ?>
     <?= $this->Form->input('end_date', ['type' => 'datetime-local', 'label' => 'End date (UTC)', 'required' => true]) ?>
-    <?= $this->Form->input('min_signal_strength', ['type' => 'number', 'label' => 'Minimum signal strength', 'required' => true]) ?>
+    <?= $this->Form->input('min_signal_strength', ['type' => 'number', 'label' => 'Minimum signal strength (Recommended: -55)', 'required' => true]) ?>
 	<div class="input text required">
 	<label for="vendors">Vendors</label>
 	    <select required name="vendors[]" multiple="multiple" id="vendors">
@@ -20,7 +20,10 @@
 <?= $this->Form->end() ?>
 
 <div class="information_div">
-	<p>The graph below displays all data that matches your criteria.</p>
+	<p>The graph below counts the average amount of probe requests per device within the given timespan.
+    The average amount of probe requests is within the whole timespan. This value will be higher when using a bigger timespan.
+    Only requests with a stronger signal strength than the minimal signal strength will be used in the counting process.
+    A correct minimal signal strength can make sure that probe requests are not counted multiple times.
 </div>
 
 <div id="dashboard">
@@ -47,12 +50,13 @@
 
         if (vendor_requests.length != 0) {
             for (var i = 0; i < vendor_requests.length; i++) {
-	            var average = Math.round(vendor_requests[i].total_received_requests / vendor_requests[i].total_devices);
+	            var average = vendor_requests[i].total_received_requests / vendor_requests[i].total_devices;
 	            if (average > 0) {
-	                data.addRow([vendor_requests[i].vendor,
-			            (vendor_requests[i].total_received_requests / vendor_requests[i].total_devices),
+	                data.addRow([
+		                vendor_requests[i].vendor,
+			            average,
 			            vendor_requests[i].vendor + "\nAverage probe requests: " +
-			            average + "\nTotal devices: " +
+			            Math.round(average) + "\nTotal devices: " +
 			            vendor_requests[i].total_devices + "\nTotal requests: " +
 			            vendor_requests[i].total_received_requests]);
                 }
