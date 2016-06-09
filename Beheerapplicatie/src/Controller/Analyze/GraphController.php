@@ -109,6 +109,12 @@ class GraphController extends AnalyzeController
         $this->set('vendor_requests', $vendor_requests);
     }
 
+	/**
+	 * Method to fetch data to create a graph to display amount of persons in a location.
+	 *
+	 * @return \Cake\Network\Response|null
+	 * @author Frank Schutte
+	 */
 	public function persons() {
 		$locations_table = TableRegistry::get('locations');
 		if(isset($this->request->data['begin_date'])
