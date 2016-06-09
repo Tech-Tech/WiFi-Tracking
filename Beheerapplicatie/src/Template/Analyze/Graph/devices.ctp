@@ -18,7 +18,7 @@
 <?= $this->Form->end() ?>
 
 <div class="information_div">
-	<p>The graph below counts all devices that matches your criteria.
+	<p>The graph below counts all devices that match your criteria.
     Each data point displays the data received within the last step, within the given location.
     Only requests with a stronger signal strength than the minimal signal strength will be used in the counting process.
     A correct minimal signal strength can make sure that only devices within the location are counted.
