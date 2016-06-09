@@ -93,6 +93,14 @@ class LocationsTable extends Table
         return $rules;
     }
 
+    /**
+     * Find all persons in a specific location in a specific time.
+     *
+     * @param Query $query
+     * @param array $options
+     * @return mixed
+     * @author Frank Schutte
+     */
     public function findPersonsInLocation(Query $query, array $options) {
         $sql = sprintf('SELECT funcGetPersonsInLocationByDate(%d, %s, %s, %f, %d, %d)',
             $options['location_id'],
