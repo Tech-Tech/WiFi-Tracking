@@ -17,7 +17,8 @@
 <?= $this->Form->end() ?>
 
 <div class="information_div">
-	<p>The graph below displays all data that matches your criteria.</p>
+	<p>The graph below shows the amount of persons that have been in a location the past time(depending on the size
+		of the minutes per step).</p>
 </div>
 
 <div id="chart_div" style="width: 90%; height: 500px;"></div>
@@ -47,7 +48,7 @@
 		var options = {
 			title: 'Persons in location',
 			vAxis: {
-				title: 'Amount of devices'
+				title: 'Amount of persons'
 			},
 			hAxis: {
 				title: 'Date',
