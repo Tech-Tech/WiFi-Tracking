@@ -63,6 +63,9 @@ class MonitoringDeviceLocationsController extends ManageController
     {
         $monitoringDeviceLocation = $this->MonitoringDeviceLocations->newEntity();
         if ($this->request->is('post')) {
+            if($this->request->data['unknown_end_date'] == 1) {
+                $this->request->data['end_date'] = null;
+            }
             $monitoringDeviceLocation = $this->MonitoringDeviceLocations->patchEntity($monitoringDeviceLocation, $this->request->data);
             if ($this->MonitoringDeviceLocations->save($monitoringDeviceLocation)) {
                 $this->Flash->success(__('The monitoring device location has been saved.'));
@@ -91,17 +94,20 @@ class MonitoringDeviceLocationsController extends ManageController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+	        if($this->request->data['unknown_end_date'] == 1) {
+		        $this->request->data['end_date'] = null;
+	        }
             $monitoringDeviceLocation = $this->MonitoringDeviceLocations->patchEntity($monitoringDeviceLocation, $this->request->data);
             if ($this->MonitoringDeviceLocations->save($monitoringDeviceLocation)) {
                 $this->Flash->success(__('The monitoring device location has been saved.'));
-                return $this->redirect(['action' => 'index']);
+	            return $this->redirect(['controller' => 'Locations', 'action' => 'view', $monitoringDeviceLocation->location_id]);
             } else {
                 $this->Flash->error(__('The monitoring device location could not be saved. Please, try again.'));
             }
         }
-        $locations = $this->MonitoringDeviceLocations->Locations->find('list', ['limit' => 200]);
-        $monitoringDevices = $this->MonitoringDeviceLocations->MonitoringDevices->find('list', ['limit' => 200]);
-        $this->set(compact('monitoringDeviceLocation', 'locations', 'monitoringDevices'));
+	    $location = $this->MonitoringDeviceLocations->Locations->get($monitoringDeviceLocation->location_id);
+	    $monitoringDevice = $this->MonitoringDeviceLocations->MonitoringDevices->get($monitoringDeviceLocation->monitoring_device_id);
+	    $this->set(compact('monitoringDeviceLocation', 'location', 'monitoringDevice'));
         $this->set('_serialize', ['monitoringDeviceLocation']);
     }
 
@@ -122,6 +128,6 @@ class MonitoringDeviceLocationsController extends ManageController
         } else {
             $this->Flash->error(__('The monitoring device location could not be deleted. Please, try again.'));
         }
-	    return $this->redirect(['controller' => 'Locations', 'action' => 'view', $this->request->query['id']]);
+	    return $this->redirect(['controller' => 'Locations', 'action' => 'index']);
     }
 }
