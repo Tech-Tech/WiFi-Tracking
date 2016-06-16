@@ -54,6 +54,7 @@
 	                <td><?= date_format($monitoringDeviceLocation->begin_date, 'D d M Y H:i') ?></td>
 	                <td><?= (!is_null($monitoringDeviceLocation->end_date)) ? (date_format($monitoringDeviceLocation->end_date, 'D d M Y H:i')) : ('') ?></td>
 		            <td class="actions">
+			            <?= $this->Html->link(__('Edit'), ['controller' => 'MonitoringDeviceLocations', 'action' => 'edit', $monitoringDeviceLocation->id]) ?>
 			            <?= $this->Form->postLink(__('Delete'), ['controller' => 'MonitoringDeviceLocations', 'action' => 'delete', $monitoringDeviceLocation->id, '?' => ['id' => $monitoringDeviceLocation->location_id]], ['confirm' => __('Are you sure you want to delete # {0}?', $monitoringDeviceLocation->id)]) ?>
 		            </td>
 	            </tr>

@@ -43,7 +43,7 @@
 			for (var i = 0; i < persons.length; i++) {
 				data.addRow([
 					new Date(persons[i].tracked_time),
-					Math.round(persons[i].count)]);
+					Math.round(persons[i].count / 2)]);
 			}
 		} else {
 			data.addRow([new Date(1990, 1, 1), 0]);
